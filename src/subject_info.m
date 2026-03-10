@@ -1,3 +1,5 @@
+function subject = subject_info()
+
 subject.code = '5_ROSA' ;
 subject.age = 23.6583 ;
 subject.dominant_limb = 'R' ;
@@ -30,4 +32,4 @@ subject.L_shou_to_back_poles_cm = 10.5 ;
 subject.R_shou_to_back_poles_cm = 10.0 ;
 subject.chair_back_ext_width_cm = 41 ;
 
-
+end
