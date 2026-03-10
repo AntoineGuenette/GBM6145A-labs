@@ -6,6 +6,7 @@ subject.dominant_limb = 'R' ;
 
 subject.height_cm = 158 ;
 subject.weight_kg = 52 ;
+subject.bmi = subject.weight_kg / (subject.height_cm / 100)^2;
 
 subject.L_hum_length_cm = 25.5 ;
 subject.R_hum_length_cm = 25.5 ;
