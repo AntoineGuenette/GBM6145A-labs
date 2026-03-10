@@ -8,7 +8,7 @@ end
 
 fid = fopen(emtFile);
 
-% ---- Find the header line ----
+% Find the header line
 while true
     line = fgetl(fid);
     if startsWith(strtrim(line),'Frame')
@@ -16,16 +16,14 @@ while true
     end
 end
 
-% ---- Read first data line to determine number of columns ----
+% Read first data line to determine number of columns
 firstDataLine = fgetl(fid);
 firstRow = str2num(firstDataLine); %#ok<ST2NM>
 
-nCols = length(firstRow);
-
-% ---- Build column names ----
+% Build column names
 header = ["Frame","Time","EMG Signal 1","EMG Signal 2","EMG Signal 3","EMG Signal 4","EMG Signal 5","EMG Signal 6"];
 
-% ---- Read all data ----
+% Read all data
 data = firstRow;
 
 while ~feof(fid)
@@ -44,7 +42,7 @@ end
 
 fclose(fid);
 
-% ---- Write CSV ----
+% Write CSV
 writecell(cellstr(header), csvFile)
 writematrix(data, csvFile, 'WriteMode','append')
 

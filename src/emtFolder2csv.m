@@ -12,7 +12,7 @@ function emtFolder2csv(folderPath)
 %
 %   See also EMT2CSV, DIR, FULLFILE
 
-    % ---- Check input argument ----
+    % Check input argument
     if nargin < 1
         error('You must provide a folder path.');
     end
@@ -22,7 +22,7 @@ function emtFolder2csv(folderPath)
         error('The specified folder does not exist: %s', folderPath);
     end
 
-    % ---- Find all EMT files in the folder ----
+    % Find all EMT files in the folder
     files = dir(fullfile(folderPath, '*.emt'));
 
     % If no files are found, notify the user
@@ -31,9 +31,9 @@ function emtFolder2csv(folderPath)
         return
     end
 
-    fprintf('Found %d .emt files.\n', numel(files));
+    fprintf('\nFound %d .emt files.\n', numel(files));
 
-    % ---- Process each file ----
+    % Process each file
     for k = 1:numel(files)
 
         % Construct full input path
