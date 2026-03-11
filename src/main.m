@@ -1,6 +1,9 @@
 % Load subject info
-subject = subject_info();
-fprintf("Loaded information of subject %s\n", subject.code)
+subjects = subject_info();
+fprintf("Loaded information of subject %s\n", subjects(1).code)
+fprintf("Loaded information of subject %s\n", subjects(2).code)
+fprintf("Loaded information of subject %s\n", subjects(3).code)
+fprintf("Loaded information of subject %s\n", subjects(4).code)
 
 % Convert .emt files to .csv files
 emtFolder2csv('../data_old/5_ROSA')
