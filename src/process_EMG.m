@@ -1,48 +1,4 @@
 function EMG_proc = process_EMG(EMG, time, fs, bmi, options)
-%PROCESS_EMG Process a raw EMG signal through filtering, rectification,
-%smoothing, and normalization.
-%
-%   EMG_PROC = PROCESS_EMG(EMG, TIME, FS, BMI) processes the raw EMG signal
-%   using a standard pipeline including band-pass filtering, low-pass
-%   filtering, rectification, smoothing, and normalization. The resulting
-%   signal is normalized by the subject's body-mass index (BMI) and by its
-%   maximum value.
-%
-%   EMG_PROC = PROCESS_EMG(EMG, TIME, FS, BMI, OPTIONS) allows the user to
-%   specify optional processing parameters.
-%
-%   INPUTS
-%       EMG   - Raw EMG signal vector (Nx1) in millivolts.
-%       TIME  - Time vector (Nx1) corresponding to the EMG samples (seconds).
-%       FS    - Sampling frequency of the signal (Hz).
-%       BMI   - Body-mass index of the subject used for normalization.
-%
-%   NAME-VALUE OPTIONS
-%       ShowGraph    - Logical flag indicating whether to display the
-%                      intermediate processing steps (default: false).
-%       BandpassLow  - Low cutoff frequency of the band-pass filter (Hz)
-%                      (default: 25).
-%       BandpassHigh - High cutoff frequency of the band-pass filter (Hz)
-%                      (default: 450).
-%       EnvLP        - Cutoff frequency of the low-pass filter applied
-%                      before rectification (Hz) (default: 25).
-%       SmoothWin    - Window length for moving-average smoothing (seconds)
-%                      (default: 0.1).
-%
-%   OUTPUT
-%       EMG_PROC - Processed and normalized EMG signal (Nx1). The signal is
-%                  normalized first by BMI and then by its maximum value.
-%
-%   If ShowGraph is true, a figure displaying each processing stage
-%   (raw signal, band-pass filtered signal, low-pass filtered signal,
-%   rectified signal, smoothed signal, and final normalized signal)
-%   is generated.
-%
-%   Example
-%       EMG_proc = process_EMG(EMG, time, fs, bmi, ...
-%                   ShowGraph=true, SmoothWin=0.2);
-%
-%   See also BUTTER, FILTFILT, MOVMEAN.
 
 arguments
     EMG (:,1) double
