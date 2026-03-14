@@ -6,9 +6,9 @@ arguments
     fs (1,1) double
     bmi (1,1) double
     options.ShowGraph (1,1) logical = false
-    options.BandpassLow (1,1) double = 25
+    options.BandpassLow (1,1) double = 20
     options.BandpassHigh (1,1) double = 450
-    options.EnvLP (1,1) double = 25
+    options.EnvLP (1,1) double = 60
     options.SmoothWin (1,1) double = 0.1
 end
 
