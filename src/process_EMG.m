@@ -6,16 +6,16 @@ arguments
     fs (1,1) double
     bmi (1,1) double
     options.ShowGraph (1,1) logical = false
-    options.BandpassLow (1,1) double = 20
-    options.BandpassHigh (1,1) double = 450
-    options.EnvLP (1,1) double = 60
+    options.BandpassLow (1,1) double = 10
+    options.BandpassHigh (1,1) double = 400
+    options.ACfreq (1,1) double = 60
     options.SmoothWin (1,1) double = 0.1
 end
 
 % Optionnal parameters
 bp_low    = options.BandpassLow;
 bp_high   = options.BandpassHigh;
-lp_env    = options.EnvLP;
+ac_freq    = options.ACfreq;
 smooth_win = options.SmoothWin;
 show_graph = options.ShowGraph;
 
@@ -23,9 +23,13 @@ show_graph = options.ShowGraph;
 [b_bp,a_bp] = butter(4,[bp_low bp_high]/(fs/2),'bandpass');
 EMG_bp = filtfilt(b_bp,a_bp,EMG);
 
-% Low-pass filter
-[b_lp,a_lp] = butter(4,lp_env/(fs/2),'low');
-EMG_lp = filtfilt(b_lp,a_lp,EMG_bp);
+% Notch filter
+bw = 2;
+low = (ac_freq - bw)/(fs/2);
+high = (ac_freq + bw)/(fs/2);
+
+[b_notch, a_notch] = butter(2, [low high], 'stop');
+EMG_lp = filtfilt(b_notch, a_notch, EMG_bp);
 
 % Rectification
 EMG_rect = abs(EMG_lp);
@@ -58,7 +62,7 @@ if show_graph
 
     subplot(6,1,3)
     plot(time, EMG_lp)
-    title('Low-pass')
+    title('Notch filter')
     xlabel('Time (s)')
     ylabel('Amplitude (mV)')
 
