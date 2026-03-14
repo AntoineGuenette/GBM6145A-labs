@@ -29,12 +29,17 @@ function emtFolder2csv(folderPath)
 
         % Construct output CSV path
         [~, name] = fileparts(files(k).name);
-        csvPath = fullfile(files(k).folder, [name '.csv']);
+        csvName = [name '.csv'];
+        csvPath = fullfile(files(k).folder, csvName);
 
-        fprintf('Converting: %s\n', files(k).name);
-
-        % Convert file using the previously defined function
-        emt2csv(emtPath, csvPath);
+        % Convert file if the CSV does not exist
+        if isfile(csvPath)
+            fprintf('Skipping since %s already exists.\n', csvName);
+            continue;
+        else
+            fprintf('Converting: %s\n', files(k).name);
+            emt2csv(emtPath, csvPath);
+        end
 
     end
 
