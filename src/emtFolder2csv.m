@@ -1,4 +1,4 @@
-function emtFolder2csv(folderPath)
+function emtFolder2csv(folderPath, fileNameDict)
 
     % Check input argument
     if nargin < 1
@@ -28,8 +28,9 @@ function emtFolder2csv(folderPath)
         emtPath = fullfile(files(k).folder, files(k).name);
 
         % Construct output CSV path
-        [~, name] = fileparts(files(k).name);
-        csvName = [name '.csv'];
+        emtName = string(files(k).name);
+        task_name = fileNameDict(emtName);
+        csvName = [task_name '.csv'];
         csvPath = fullfile(files(k).folder, csvName);
 
         % Convert file if the CSV does not exist

@@ -1,10 +1,5 @@
 function emt2csv(emtFile, csvFile)
 
-if nargin < 2
-    [p,n] = fileparts(emtFile);
-    csvFile = fullfile(p,[n '.csv']);
-end
-
 fid = fopen(emtFile);
 
 % Find the header line
