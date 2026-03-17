@@ -35,31 +35,43 @@ tricep_proc = process_EMG(tricep_EMG, time, 1000, bmi);
 ant_delt_proc = process_EMG(ant_delt_EMG, time, 1000, bmi);
 post_delt_proc = process_EMG(post_delt_EMG, time, 1000, bmi);
 
+% Normalize all tracks by the maximum value
+max_val = max([bicep_proc; tricep_proc; ant_delt_proc; post_delt_proc]);
+bicep_norm = bicep_proc / max_val;
+tricep_norm = tricep_proc / max_val;
+ant_delt_norm = ant_delt_proc / max_val;
+post_delt_norm = post_delt_proc / max_val;
+
+
 % Plot all valid tracks
 figure
     
 subplot(4,1,1)
-plot(time, bicep_proc)
+plot(time, bicep_norm)
 title('Bicep')
 xlabel('Time (s)')
 ylabel('Amplitude')
+ylim([0,1])
 
 subplot(4,1,2)
-plot(time, tricep_proc)
+plot(time, tricep_norm)
 title('Tricep')
 xlabel('Time (s)')
 ylabel('Amplitude')
+ylim([0,1])
 
 subplot(4,1,3)
-plot(time, ant_delt_proc)
+plot(time, ant_delt_norm)
 title('Anterior Deltoid')
 xlabel('Time (s)')
 ylabel('Amplitude')
+ylim([0,1])
 
 subplot(4,1,4)
-plot(time, post_delt_proc)
+plot(time, post_delt_norm)
 title('Posterior Deltoid')
 xlabel('Time (s)')
 ylabel('Amplitude')
+ylim([0,1])
 
 end

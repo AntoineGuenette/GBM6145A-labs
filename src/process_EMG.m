@@ -39,10 +39,7 @@ win = round(smooth_win*fs);
 EMG_smooth = movmean(EMG_rect,win);
 
 % Normalization by Body-Mass Index (BMI)
-EMG_norm = EMG_smooth / bmi;
-
-% Normalization by max value
-EMG_proc = EMG_norm / max(EMG_norm);
+EMG_proc = EMG_smooth / bmi;
 
 % Show figure if specified
 if show_graph
