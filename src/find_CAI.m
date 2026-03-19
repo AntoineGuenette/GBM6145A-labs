@@ -1,10 +1,13 @@
-function [CAI_val] = find_CAI(file_path1, file_path2, options)
+function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
     arguments
         file_path1 (1,1) string
         file_path2 (1,1) string
+        bmi (1,1) double
         options.Ag (1,1) double = 1    % Index de la colonne EMG (ex: 1 pour EMG_1)
         options.Antag (1,1) double = 2 % Index de la colonne EMG (ex: 2 pour EMG_2)
     end
+    subjects = get_subject_info();
+    fs = 1000;
 
     % 1. Chargement des données
     data2 = readtable(file_path2);
@@ -23,7 +26,10 @@ function [CAI_val] = find_CAI(file_path1, file_path2, options)
     % Extraction des signaux bruts (vecteurs colonnes)
     Ag_raw = data2{:, emg_idx(options.Ag)};
     Antag_raw = data2{:, emg_idx(options.Antag)};
-    
+
+    Ag_processed = process_EMG(Ag_raw, time, fs, bmi, "ShowGraph", false);
+    Antag_processed = process_EMG(Antag_raw, time, fs, bmi, "ShowGraph", false);
+
     % Récupération des noms exacts pour find_Tm (ex: "EMG_1")
     Ag_name = all_var_names(emg_idx(options.Ag));
     Antag_name = all_var_names(emg_idx(options.Antag));
@@ -35,8 +41,9 @@ function [CAI_val] = find_CAI(file_path1, file_path2, options)
     Antag_baseline = find_Tm(file_path1, h, "minSTD", true, "EMG", Antag_name);
 
     % 4. Conditionnement (Soustraction baseline, Rectification, etc.)
-    EMG_Ag = condition_EMG(Ag_baseline, Ag_raw);
-    EMG_Antag = condition_EMG(Antag_baseline, Antag_raw);
+
+    EMG_Ag = condition_EMG(Ag_baseline, Ag_processed);
+    EMG_Antag = condition_EMG(Antag_baseline, Antag_processed);
 
     % 5. Calcul des Aires (trapz)
     A_Ag = trapz(time, EMG_Ag);
