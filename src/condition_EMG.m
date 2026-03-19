@@ -17,7 +17,7 @@ EMG_conditionned = zeros(size(EMG));
 if ~isempty(idx_on) && ~isempty(idx_off) && (idx_off > idx_on)
     % On applique le seuil uniquement sur la zone active
     % Note : on ajoute 24 à idx_off pour inclure la fin de la fenêtre de silence
-    EMG_conditionned(idx_on:idx_off+24) = EMG1(idx_on:idx_off+24) - T_m;
+    EMG_conditionned(idx_on:idx_off+24) = EMG(idx_on:idx_off+24) - T_m;
     
     % On s'assure de ne pas avoir de valeurs négatives après soustraction du seuil
     EMG_conditionned(EMG_conditionned < 0) = 0;
