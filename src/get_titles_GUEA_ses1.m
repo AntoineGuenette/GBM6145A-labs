@@ -77,7 +77,7 @@ function dict = get_titles_GUEA_ses1()
         "Serie_4-Group_1-Task_37-Elbow_Flexion-Device_(DynAReach)"
         "Serie_4-Group_2-Task_38-Pointing_Task-Device_(DynAReach)"
         "Serie_4-Group_2-Task_39-HFT_Large_Light_Objects-Device_(DynAReach)"
-        "Serie_4-Group_2-Task_30-Switch_Joystick_and_Grid_Game-Device_(DynAReach)"
+        "Serie_4-Group_2-Task_40-Switch_Joystick_and_Grid_Game-Device_(DynAReach)"
         "Serie_4-Group_3-Task_41-JAMAR_Palmar_Grip-Device_(DynAReach)"
         "Serie_4-Group_3-Task_41bis-JAMAR_Palmar_Grip_(BIS)-Device_(DynAReach)"
         "Serie_4-Group_3-Task_42-HFT_Feeding_task-Device_(DynAReach)"
