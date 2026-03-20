@@ -29,7 +29,7 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
     Antag_processed = process_EMG(Antag_raw, time, fs, bmi, "ShowGraph", false);
     
     % --- 2. Baselines et Conditionnement ---
-    h = 1;
+    h = 3;
     Ag_name = all_var_names(emg_idx(idx_Ag_map));
     Antag_name = all_var_names(emg_idx(idx_Antag_map));
     Ag_baseline = find_Tm(file_path1, h, "minSTD", true, "EMG", Ag_name);
@@ -54,7 +54,7 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
     plot(time, EMG_Antag, 'r', 'LineWidth', 1, 'DisplayName', "Antagoniste: " + options.Antag);
     area(time, area_common_curve, 'FaceColor', [0.7 0.7 0.7], 'EdgeColor', 'none', 'DisplayName', 'Aire Commune');
     
-    title(sprintf('CAI pour la tâche %s %s (%s vs %s) : %.2f%%', options.task, nomTachePropre, options.Ag, options.Antag, CAI_val), ...
+    title(sprintf('CAI pour la tâche %s (%s vs %s) : %.2f%%', nomTachePropre, options.Ag, options.Antag, CAI_val), ...
           'Interpreter', 'none');
     xlabel('Temps (s)');
     ylabel('Amplitude EMG');
@@ -67,7 +67,7 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
     end
     
     % Création d'un nom de fichier unique (ex: CAI_Pointing_Task_Tricep_vs_Bicep.png)
-    file_name = sprintf('CAI_%s_%s_%s_vs_%s.png', options.task, options.title, options.Ag, options.Antag);
+    file_name = sprintf('CAI__%s_%s_vs_%s.png', options.title, options.Ag, options.Antag);
     save_path = fullfile(options.save_folder, file_name);
     
     saveas(fig, save_path);

@@ -1,4 +1,4 @@
-EMfunction [EMG_conditionned] = condition_EMG(T_m,EMG)
+function[EMG_conditionned] = condition_EMG(T_m,EMG)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -26,4 +26,5 @@ else
     EMG_conditionned(EMG_conditionned < 0) = 0; % Ensure no negative values
     warning("Détection Onset/Offset incomplète pour l'EMG");
 end
+
 end
