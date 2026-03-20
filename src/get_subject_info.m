@@ -5,17 +5,17 @@ subjects(1).code = 'GUEA_ses1';
 subjects(1).height_cm = 171;
 subjects(1).weight_kg = 58;
 
-subjects(2).code = 'Unknown';
-subjects(2).height_cm = 0.1;
-subjects(2).weight_kg = 0.1;
+subjects(2).code = 'RABA_ses1';
+subjects(2).height_cm = 178;
+subjects(2).weight_kg = 73;
 
-subjects(3).code = 'Unknown';
-subjects(3).height_cm = 0.1;
-subjects(3).weight_kg = 0.1;
+subjects(3).code = 'GUEA_ses2';
+subjects(3).height_cm = 171;
+subjects(3).weight_kg = 58;
 
-subjects(4).code = 'Unknown';
-subjects(4).height_cm = 0.1;
-subjects(4).weight_kg = 0.1;
+subjects(4).code = 'RABA_ses2';
+subjects(4).height_cm = 178;
+subjects(4).weight_kg = 73;
 
 % Compute BMI
 for i = 1:numel(subjects)
@@ -32,14 +32,14 @@ subjects(1).joystick_2_JAECO_s = 11.959 ;
 subjects(1).joystick_3_DynAReach_s = 5.318 ;
 subjects(1).joystick_4_DynAReach_s = 8.167 ;
 
-subjects(2).HFT_LLWObj_1_JAECO_s = 'Unknown' ;
-subjects(2).HFT_LLWObj_2_JAECO_s = 'Unknown' ;
-subjects(2).HFT_LLWObj_3_DynAReach_s = 'Unknown' ;
-subjects(2).HFT_LLWObj_4_DynAReach_s = 'Unknown' ;
-subjects(2).joystick_1_JAECO_s = 'Unknown' ;
-subjects(2).joystick_2_JAECO_s = 'Unknown' ;
-subjects(2).joystick_3_DynAReach_s = 'Unknown' ;
-subjects(2).joystick_4_DynAReach_s = 'Unknown' ;
+subjects(2).HFT_LLWObj_1_JAECO_s = 8.749 ;
+subjects(2).HFT_LLWObj_2_JAECO_s = 6.424 ;
+subjects(2).HFT_LLWObj_3_DynAReach_s = 7.927 ;
+subjects(2).HFT_LLWObj_4_DynAReach_s = 7.185 ;
+subjects(2).joystick_1_JAECO_s = 6.111 ;
+subjects(2).joystick_2_JAECO_s = 5.872 ;
+subjects(2).joystick_3_DynAReach_s = 4.908 ;
+subjects(2).joystick_4_DynAReach_s = 4.277 ;
 
 subjects(3).HFT_LLWObj_1_JAECO_s = 'Unknown' ;
 subjects(3).HFT_LLWObj_2_JAECO_s = 'Unknown' ;
@@ -71,20 +71,20 @@ subjects(1).HFT_spoon_4_DynAReach_s = 19.751 ;
 subjects(1).BBT_1_JAECO = 51;
 subjects(1).BBT_2_JAECO = 58;
 subjects(1).BBT_3_JAECO = 62;
-subjects(1).BBT_4_DynAReach = 'Unknown';
+subjects(1).BBT_4_DynAReach = 56;
 
-subjects(2).JAMAR_1_JAECO_kg = 'Unknown';
-subjects(2).JAMAR_2_JAECO_kg = 'Unknown';
-subjects(2).JAMAR_3_JAECO_kg = 'Unknown';
-subjects(2).JAMAR_4_DynAReach_kg = 'Unknown';
-subjects(2).HFT_spoon_1_JAECO_s = 'Unknown' ;
-subjects(2).HFT_spoon_2_JAECO_s = 'Unknown' ;
-subjects(2).HFT_spoon_3_JAECO_s = 'Unknown' ;
-subjects(2).HFT_spoon_4_DynAReach_s = 'Unknown' ;
-subjects(2).BBT_1_JAECO = 'Unknown';
-subjects(2).BBT_2_JAECO = 'Unknown';
-subjects(2).BBT_3_JAECO = 'Unknown';
-subjects(2).BBT_4_DynAReach = 'Unknown';
+subjects(2).JAMAR_1_JAECO_kg = 38;
+subjects(2).JAMAR_2_JAECO_kg = 41;
+subjects(2).JAMAR_3_JAECO_kg = 40.5;
+subjects(2).JAMAR_4_DynAReach_kg = 40.5;
+subjects(2).HFT_spoon_1_JAECO_s = 12.179 ;
+subjects(2).HFT_spoon_2_JAECO_s = 10.484 ;
+subjects(2).HFT_spoon_3_JAECO_s = 10.294 ;
+subjects(2).HFT_spoon_4_DynAReach_s = 11.204 ;
+subjects(2).BBT_1_JAECO = 58;
+subjects(2).BBT_2_JAECO = 61;
+subjects(2).BBT_3_JAECO = 67;
+subjects(2).BBT_4_DynAReach = 67;
 
 subjects(3).JAMAR_1_JAECO_kg = 'Unknown';
 subjects(3).JAMAR_2_JAECO_kg = 'Unknown';
