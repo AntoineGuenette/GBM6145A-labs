@@ -1,4 +1,4 @@
-function [EMG_conditionned] = condition_EMG(T_m,EMG)
+EMfunction [EMG_conditionned] = condition_EMG(T_m,EMG)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 

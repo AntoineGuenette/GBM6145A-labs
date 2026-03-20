@@ -1,3 +1,8 @@
+addpath("EMG_utils/")
+addpath("files_utils/")
+addpath("plots_utils/")
+addpath("subject_utils/")
+
 % Load subject info
 subjects = get_subject_info();
 
