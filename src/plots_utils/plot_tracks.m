@@ -44,6 +44,7 @@ post_delt_proc= process_EMG(post_delt_EMG, time, 1000, bmi);
 max_val = max([bicep_proc; tricep_proc; ant_delt_proc; post_delt_proc]);
 max_time = max(time);
 
+% Create figure
 fig = figure('Visible','off');
 
 subplot(4,1,1)
@@ -88,3 +89,5 @@ end
 
 saveas(fig, save_path, 'png');
 close(fig);
+
+end
