@@ -163,6 +163,7 @@ if ~exist(save_folder, 'dir')
 end
 
 saveas(fig, save_path, 'png');
+fprintf('   -> Saved plot : %s\n', file_name);
 close(fig);
 
 end

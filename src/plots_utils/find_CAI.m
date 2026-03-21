@@ -54,8 +54,13 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
     plot(time, EMG_Antag, 'r', 'LineWidth', 1, 'DisplayName', "Antagoniste: " + options.Antag);
     area(time, area_common_curve, 'FaceColor', [0.7 0.7 0.7], 'EdgeColor', 'none', 'DisplayName', 'Aire Commune');
     
-    title(sprintf('CAI pour la tâche %s %s (%s vs %s) : %.2f%%', options.task, nomTachePropre, options.Ag, options.Antag, CAI_val), ...
-          'Interpreter', 'none');
+    title(sprintf('CAI pour la tâche %s %s (%s vs %s) : %.2f%%', ...
+        char(options.task), ...
+        char(nomTachePropre), ...
+        char(options.Ag), ...
+        char(options.Antag), ...
+        CAI_val), ...
+        'Interpreter', 'none');
     xlabel('Temps (s)');
     ylabel('Amplitude EMG');
     legend show;
@@ -67,11 +72,11 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
     end
     
     % Création d'un nom de fichier unique (ex: CAI_Pointing_Task_Tricep_vs_Bicep.png)
-    file_name = sprintf('CAI_%s_%s_%s_vs_%s.png', options.task, options.title, options.Ag, options.Antag);
+    file_name = sprintf('CAI_task-%s_%s_%s_vs_%s.png', options.task, options.title, options.Ag, options.Antag);
     save_path = fullfile(options.save_folder, file_name);
     
     saveas(fig, save_path);
-    fprintf('   -> Graphique enregistré : %s\n', file_name);
+    fprintf('   -> Saved plot : %s\n', file_name);
     
     close(fig); % Ferme la figure pour libérer la mémoire
 end

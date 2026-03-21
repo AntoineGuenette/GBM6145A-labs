@@ -82,12 +82,13 @@ ylim([0,max_val])
 sgtitle(plot_title)
 
 % Save the figure to the specified path
-[save_folder, ~, ~] = fileparts(save_path);
+[save_folder, file_name, ~] = fileparts(save_path);
 if ~exist(save_folder, 'dir')
     mkdir(save_folder);
 end
 
 saveas(fig, save_path, 'png');
+fprintf('   -> Saved plot : %s\n', file_name);
 close(fig);
 
 end

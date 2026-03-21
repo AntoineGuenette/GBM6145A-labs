@@ -24,7 +24,6 @@ if ~isempty(idx_on) && ~isempty(idx_off) && (idx_off > idx_on)
 else
     EMG_conditionned = EMG - T_m; % Set all values to zero if detection fails
     EMG_conditionned(EMG_conditionned < 0) = 0; % Ensure no negative values
-    warning("Détection Onset/Offset incomplète pour l'EMG");
 end
 
 end
