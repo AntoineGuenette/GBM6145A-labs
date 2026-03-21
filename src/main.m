@@ -14,7 +14,7 @@ emtFolder2csv('../data/RABA_ses1', FileNameDict_RABA_ses1);
 
 % Create results file
 results_path = '../res/results.csv';
-initialize_CSV_results(results_path)
+initialize_results(results_path)
 
 % Define movement dictionary
 movements = dictionary();

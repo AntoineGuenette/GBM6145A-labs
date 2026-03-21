@@ -1,4 +1,4 @@
-function initialize_CSV_results(file_path)
+function initialize_results(file_path)
 
 arguments
     file_path (1,1) string
