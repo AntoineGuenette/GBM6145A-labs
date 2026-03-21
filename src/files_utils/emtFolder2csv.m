@@ -22,6 +22,7 @@ function emtFolder2csv(folderPath, fileNameDict)
     fprintf('\nFound %d .emt files.\n', numel(files));
 
     % Process each file
+    counter = 0;
     for k = 1:numel(files)
 
         % Construct full input path
@@ -35,14 +36,18 @@ function emtFolder2csv(folderPath, fileNameDict)
 
         % Convert file if the CSV does not exist
         if isfile(csvPath)
-            fprintf('Skipping since %s already exists.\n', csvName);
-            continue;
+            counter = counter + 1;
         else
-            fprintf('Converting: %s\n', files(k).name);
+            fprintf('   -> Converting: %s\n', files(k).name);
             emt2csv(emtPath, csvPath);
         end
-
     end
+
+    if counter > 0
+        fprintf('   -> Skipped conversion for %d/%d files because the CSV files already exist.\n', ...
+                counter, numel(files));
+    end
+
 
     fprintf('Conversion completed.\n');
 
