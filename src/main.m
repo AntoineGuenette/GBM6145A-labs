@@ -12,6 +12,10 @@ emtFolder2csv('../data/GUEA_ses1', FileNameDict_GUEA_ses1);
 FileNameDict_RABA_ses1 = get_titles_RABA_ses1();
 emtFolder2csv('../data/RABA_ses1', FileNameDict_RABA_ses1);
 
+% Create results file
+results_path = '../res/results.csv';
+initialize_CSV_results(results_path)
+
 % Define movement dictionary
 movements = dictionary();
 movements("Rest") = struct('agoniste', ["Bicep","Tricep"], 'antagoniste', ["DeltAnt","DeltPost"]);
@@ -23,6 +27,8 @@ movements("Switch_Joystick_and_Grid_Game") = struct('agoniste', ["Bicep","DeltAn
 movements("JAMAR_Palmar_Grip") = struct('agoniste', "Bicep", 'antagoniste', "Tricep");
 movements("HFT_Feeding_task") = struct('agoniste', "Bicep", 'antagoniste', "Tricep");
 movements("Box_and_Blocs_Test") = struct('agoniste', ["Tricep","DeltAnt"], 'antagoniste', ["Bicep","DeltPost"]);
+
+% Create CSV result file
 
 % ------- SUBJECT 1 / SESSION 1 --------
 
