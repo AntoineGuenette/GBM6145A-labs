@@ -1,6 +1,7 @@
 addpath("EMG_utils/")
 addpath("files_utils/")
 addpath("plots_utils/")
+addpath("results_utils")
 addpath("subject_utils/")
 
 % Load subject info
