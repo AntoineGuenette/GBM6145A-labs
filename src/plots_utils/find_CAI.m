@@ -7,8 +7,8 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
         options.Antag (1,1) string 
         options.title (1,1) string
         options.task (1,1) string
-        options.save_folder (1,1) string = "results/plots" % Dossier par défaut
-        options.save_csv = "res/resultsCAI.csv"
+        options.save_folder (1,1) string
+        options.save_csv (1,1) string
         options.subject (1,1) string
         options.device (1,1) string
     end
@@ -78,6 +78,7 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
     file_name = sprintf('CAI_task-%s_%s_%s_vs_%s.png', options.task, options.title, options.Ag, options.Antag);
     save_path = fullfile(options.save_folder, file_name);
     saveas(fig, save_path);
+    fprintf('   -> Saved plot : %s\n', file_name);
     close(fig); 
 
     % --- 6. Enregistrement CSV  ---
@@ -98,6 +99,4 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
         % Ajout : on écrit sans les noms de variables pour ne pas les répéter
         writetable(newRow, options.save_csv, 'WriteMode', 'Append', 'WriteVariableNames', false);
     end
-    
-    fprintf("   -> Data saved to: %s\n", options.save_csv);
 end

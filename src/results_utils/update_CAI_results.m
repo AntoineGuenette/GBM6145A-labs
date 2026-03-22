@@ -20,8 +20,6 @@ C2 = readcell(output_path);
 % We create a struct to store the CAI : storage.Subject_Task_Muscle.Device = [valeurs]
 storage = struct();
 
-fprintf("Analyse des données en cours...\n");
-
 for i = 2:size(C1, 1)
     subject  = string(C1{i, 2});
     device   = string(C1{i, 3});
@@ -70,27 +68,23 @@ end
 
 fields = fieldnames(storage);
 for f = 1:length(fields)
-    % Retriving data from each safe_key of the storage
-    key = fields{f};
+    key  = fields{f};
     data = storage.(key);
-    
-    % We compute only if we have at least one trial for each device
+
     if ~isempty(data.JAECO) && ~isempty(data.DynAReach)
         avg_J = mean(data.JAECO);
         avg_D = mean(data.DynAReach);
-        
-        diff_perc = (abs(avg_J - avg_D) / avg_J) * 100;
-       
-        % Extract info from each safe_key data
-        subj_name = data.subjectName;
-        task_label = data.taskName;
+
+        diff_perc = compute_CAI_diff(avg_J, avg_D);
+
+        subj_name    = data.subjectName;
+        task_label   = data.taskName;
         muscle_label = data.muscleType;
-        
+
         criteria = task_label + "-CAI_" + muscle_label;
-        % Find corresponding row in results.csv
-        row = find(strcmp(string(C2(:,1)), criteria));
-        col = subjects(subj_name);
-        
+        row      = find(strcmp(string(C2(:,1)), criteria));
+        col      = subjects(subj_name);
+
         if ~isempty(row)
             C2{row, col} = diff_perc;
         end
@@ -99,5 +93,4 @@ end
 
 % --- FINAL WRITTING ---
 writecell(C2, output_path);
-fprintf("Mise à jour terminée avec les moyennes des essais.\n");
 end

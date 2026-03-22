@@ -9,10 +9,8 @@ end
 
     % Define Criteria column
     criteria = { ...
-        'Shoulder_Flexion-CAI_BiTri'
         'Shoulder_Flexion-CAI_Delt'
         'Elbow_Flexion-CAI_BiTri'
-        'Elbow_Flexion-CAI_Delt'
         'Pointing-CAI_BiTri'
         'Pointing-CAI_Delt'
         'HFT_LLO-time'
