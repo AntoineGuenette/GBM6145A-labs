@@ -8,10 +8,14 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
         options.title (1,1) string
         options.task (1,1) string
         options.save_folder (1,1) string = "results/plots" % Dossier par défaut
+        options.save_csv = "res/resultsCAI.csv"
+        options.subject (1,1) string
+        options.device (1,1) string
     end
     
-    fs = 1000;
+
     muscles_map = dictionary("Bicep", 1, "Tricep", 2, "DeltAnt", 3, "DeltPost", 4);
+    fs = 1000;
 
     % --- 1. Mappage et Chargement ---
     idx_Ag_map = muscles_map(options.Ag);
@@ -71,12 +75,29 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
         mkdir(options.save_folder);
     end
     
-    % Création d'un nom de fichier unique (ex: CAI_Pointing_Task_Tricep_vs_Bicep.png)
     file_name = sprintf('CAI_task-%s_%s_%s_vs_%s.png', options.task, options.title, options.Ag, options.Antag);
     save_path = fullfile(options.save_folder, file_name);
-    
     saveas(fig, save_path);
-    fprintf('   -> Saved plot : %s\n', file_name);
+    close(fig); 
+
+    % --- 6. Enregistrement CSV  ---
+    % On prépare la ligne avec exactement le même nombre de colonnes que les headers
+    newRow = table(options.task, options.subject, options.device, options.title, options.Ag, options.Antag, CAI_val, ...
+        'VariableNames', {'TaskID', 'Subject', 'Device', 'TaskName', 'Agonist', 'Antagonist', 'CAI'});
+
+    % Vérifier si le dossier du CSV existe
+    [csv_dir, ~, ~] = fileparts(options.save_csv);
+    if ~isempty(csv_dir) && ~exist(csv_dir, 'dir')
+        mkdir(csv_dir);
+    end
+
+    if ~exist(options.save_csv, 'file')
+        % Première fois : on écrit avec les noms de variables
+        writetable(newRow, options.save_csv);
+    else
+        % Ajout : on écrit sans les noms de variables pour ne pas les répéter
+        writetable(newRow, options.save_csv, 'WriteMode', 'Append', 'WriteVariableNames', false);
+    end
     
-    close(fig); % Ferme la figure pour libérer la mémoire
+    fprintf("   -> Data saved to: %s\n", options.save_csv);
 end
