@@ -1,17 +1,17 @@
-addpath("src/EMG_utils/")
-addpath("src/files_utils/")
-addpath("src/plots_utils/")
-addpath("src/results_utils")
-addpath("src/subject_utils/")
-
+addpath("EMG_utils/")
+addpath("files_utils/")
+addpath("plots_utils/")
+addpath("results_utils")
+addpath("subject_utils/")
+clear;
 % Load subject info
 subjects = get_subject_info();
 
 % Convert .emt files to .csv files
 FileNameDict_GUEA_ses1 = get_titles_GUEA_ses1();
-emtFolder2csv('data/GUEA_ses1', FileNameDict_GUEA_ses1);
+emtFolder2csv('../data/GUEA_ses1', FileNameDict_GUEA_ses1);
 FileNameDict_RABA_ses1 = get_titles_RABA_ses1();
-emtFolder2csv('data/RABA_ses1', FileNameDict_RABA_ses1);
+emtFolder2csv('../data/RABA_ses1', FileNameDict_RABA_ses1);
 
 % Define movement dictionary
 movements = dictionary();
@@ -27,11 +27,11 @@ movements("Box_and_Blocs_Test") = struct('agoniste', ["Tricep","DeltAnt"], 'anta
 
 % ------- SUBJECT 1 / SESSION 1 --------
 
-data_dir = "data/GUEA_ses1";
+data_dir = "../data/GUEA_ses1";
 files = dir(fullfile(data_dir, '*.csv'));
-all_tracks_dir = "figs/GUEA_ses1/all_tracks";
-superimpose_dir = "figs/GUEA_ses1/superimpose";
-CAI_dir = "figs/GUEA_ses1/CAI";
+all_tracks_dir = "../figs/GUEA_ses1/all_tracks";
+superimpose_dir = "../figs/GUEA_ses1/superimpose";
+CAI_dir = "../figs/GUEA_ses1/CAI";
 
 % -- Build all tracks plot --
 fprintf("\nCreating all tracks plots for GUEA_ses1...\n")
@@ -141,11 +141,11 @@ fprintf("CAI computation completed for GUEA_ses1.\n")
 
 % ------- SUBJECT 2 / SESSION 1 --------
 
-data_dir = "data/RABA_ses1";
+data_dir = "../data/RABA_ses1";
 files = dir(fullfile(data_dir, '*.csv'));
-all_tracks_dir = "figs/RABA_ses1/all_tracks";
-superimpose_dir = "figs/RABA_ses1/superimpose";
-CAI_dir = "figs/RABA_ses1/CAI";
+all_tracks_dir = "../figs/RABA_ses1/all_tracks";
+superimpose_dir = "../figs/RABA_ses1/superimpose";
+CAI_dir = "../figs/RABA_ses1/CAI";
 
 % -- Build all tracks plot --
 fprintf("\nCreating all tracks plots for RABA_ses1...\n")
@@ -249,16 +249,17 @@ fprintf("CAI computation completed for RABA_ses1.\n")
 
 
 % Create results file
-results_path = 'res/results.csv';
+results_path = '../res/results.csv';
 initialize_results(results_path)
 
 % Add non-EMG-related results
 update_non_EMG_results(results_path)
 
-input_path = "res/resultsCAI.csv";
-output_path = "res/results.csv";
+% Add CAI results
+input_path = "../res/resultsCAI.csv";
+output_path = "../res/results.csv";
 
 update_CAI_results(input_path, output_path);
 
-% Add CAI results
+
 

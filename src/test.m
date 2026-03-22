@@ -20,7 +20,18 @@ movements("JAMAR_Palmar_Grip") = struct('agoniste', "Bicep", 'antagoniste', "Tri
 movements("HFT_Feeding_task") = struct('agoniste', "Bicep", 'antagoniste', "Tricep");
 movements("Box_and_Blocs_Test") = struct('agoniste', ["Tricep","DeltAnt"], 'antagoniste', ["Bicep","DeltPost"]);
 
+
+% Create results file
+results_path = 'res/results.csv';
+initialize_results(results_path)
+
+% Add non-EMG-related results
+update_non_EMG_results(results_path)
+
+
+% Add CAI results
 input_path = "res/resultsCAI.csv";
 output_path = "res/results.csv";
 
 update_CAI_results(input_path, output_path);
+
