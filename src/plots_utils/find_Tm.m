@@ -17,7 +17,7 @@ numSamples = length(raw_EMG);
 time = data.Time;
 
 % Traitement du signal (on utilise raw_EMG ici)
-EMG1 = process_EMG(raw_EMG, time, fs, subjects(1).bmi, "ShowGraph", false); 
+EMG1 = process_EMG(raw_EMG, time, fs, subjects(1).bmi, "ShowGraph", false);
 
 % Calcul des fenêtres pour l'écart-type
 number_windows = floor(time(end)/0.3);

@@ -40,7 +40,15 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
     Antag_baseline = find_Tm(file_path1, h, "minSTD", true, "EMG", Antag_name);
     
     EMG_Ag = condition_EMG(Ag_baseline, Ag_processed);
+    val_max = max(EMG_Ag);
+    if val_max > 0
+        EMG_Ag = EMG_Ag / val_max;
+    end
     EMG_Antag = condition_EMG(Antag_baseline, Antag_processed);
+    val_max = max(EMG_Antag);
+    if val_max > 0
+        EMG_Antag = EMG_Antag / val_max;
+    end
     
     % --- 3. Calculs CAI ---
     A_Ag = trapz(time, EMG_Ag);
@@ -48,6 +56,9 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
     area_common_curve = min(EMG_Ag, EMG_Antag);
     A_common = trapz(time, area_common_curve);
     CAI_val = 2 * (A_common / (A_Ag + A_Antag)) * 100;
+    if CAI_val == 0
+        CAI_val = 0.00;
+    end
     
     % --- 4. Création de la Figure ---
     nomTachePropre = replace(options.title, "_", " ");
