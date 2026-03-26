@@ -83,12 +83,16 @@ sgtitle(plot_title)
 
 % Save the figure to the specified path
 [save_folder, file_name, ~] = fileparts(save_path);
-if ~exist(save_folder, 'dir')
-    mkdir(save_folder);
-end
-
-saveas(fig, save_path, 'png');
-fprintf('   -> Saved plot : %s\n', file_name);
+if isfile(save_path + '.png')
+    fprintf('   -> %s already exists\n', file_name);
+else
+    if ~exist(save_folder, 'dir')
+        mkdir(save_folder);
+    end
+    
+    saveas(fig, save_path, 'png');
+    fprintf('   -> Saved plot : %s\n', file_name);
+    
 close(fig);
 
 end

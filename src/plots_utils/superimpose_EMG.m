@@ -157,13 +157,17 @@ xlim([0,max_time])
 ylim([0,max_val])
 
 % Enregistrer les figures
-[save_folder, ~, ~] = fileparts(save_path);
-if ~exist(save_folder, 'dir')
-    mkdir(save_folder);
-end
-
-saveas(fig, save_path, 'png');
-fprintf('   -> Saved plot : %s\n', file_name);
+[save_folder, file_name, ~] = fileparts(save_path);
+if isfile(save_path + ".png")
+    fprintf('   -> %s already exists\n', file_name);
+else
+    if ~exist(save_folder, 'dir')
+        mkdir(save_folder);
+    end
+    
+    saveas(fig, save_path, 'png');
+    fprintf('   -> Saved plot : %s\n', file_name);
+    
 close(fig);
 
 end

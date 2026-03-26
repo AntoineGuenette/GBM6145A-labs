@@ -1,4 +1,4 @@
-function plot_all_superimpose(data_dir, save_dir)
+function plot_all_superimpose_study_1(data_dir, save_dir)
 
 arguments
     data_dir (1,1) string

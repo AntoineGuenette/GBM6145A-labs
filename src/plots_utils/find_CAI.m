@@ -82,15 +82,20 @@ function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
     grid on;
 
     % --- 5. Enregistrement ---
-    if ~exist(options.save_folder, 'dir')
-        mkdir(options.save_folder);
-    end
-    
     file_name = sprintf('CAI_task-%s_%s_%s_vs_%s.png', options.task, options.title, options.Ag, options.Antag);
     save_path = fullfile(options.save_folder, file_name);
-    saveas(fig, save_path);
-    fprintf('   -> Saved plot : %s\n', file_name);
-    close(fig); 
+    if isfile(save_path)
+        fprintf('   -> %s already exists\n', file_name);
+    else
+        if ~exist(options.save_folder, 'dir')
+            mkdir(options.save_folder);
+        end
+        
+        saveas(fig, save_path, 'png');
+        fprintf('   -> Saved plot : %s\n', file_name);
+    end
+  
+    close(fig);
 
     % --- 6. Enregistrement CSV  ---
     % On prépare la ligne avec exactement le même nombre de colonnes que les headers
