@@ -1,6 +1,7 @@
 function dict = get_titles_GUEA_ses2()
 
     keys = [
+        "0038~ab~t3.emt"
         "0038~ab~t4.emt"
         "0038~ab~t5.emt"
         "0038~ab~t6.emt"
@@ -39,6 +40,7 @@ function dict = get_titles_GUEA_ses2()
     ];
 
     values = [
+        "Serie_1-Group_1-Task_3-Rest-Device_(Chair)"
         "Serie_1-Group_1-Task_4-Shoulder_Flexion-Baseline_(Chair)"
         "Serie_1-Group_1-Task_5-Elbow_Flexion-Baseline_(Chair)"
         "Serie_1-Group_2-Task_6-Pointing_Task-Baseline_(Chair)"
