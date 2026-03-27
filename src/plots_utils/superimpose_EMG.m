@@ -77,7 +77,7 @@ sgtitle(sprintf("Comparison for %s",  task_name));
 legend_labels = strings(1,4);
 device_count = containers.Map;
 for i = 1:4
-    dev = infos(i).device;
+    dev = infos(i).modality;
     if isKey(device_count, dev)
         device_count(dev) = device_count(dev) + 1;
     else

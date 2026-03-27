@@ -6,7 +6,7 @@ function info = parse_filename(file_path)
         'group', NaN, ...
         'task', "", ...
         'task_name', "", ...
-        'device', "" ...
+        'modality', "" ...
     );
 
     % Get file name
@@ -28,11 +28,11 @@ function info = parse_filename(file_path)
     info.task_name = string(parts(4));
 
     % Extract device
-    token = regexp(parts(5), '\((.*?)\)', 'tokens', 'once');
-    if ~isempty(token)
-        info.device = string(token{1});
+    modality_token = string(parts(5));
+    if startsWith(modality_token, "Baseline")
+        info.modality = "Baseline";
     else
-        info.device = "Unknown";
+        info.modality = "Device";
     end
 
 end
