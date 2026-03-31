@@ -1,9 +1,10 @@
-function [CAI_val] = plot_CAI(rest_path, EMG_path, bmi, options)
+function [CAI_val] = plot_CAI(rest_path, EMG_path, bmi, fs, options)
 
 arguments
     rest_path (1,1) string
     EMG_path (1,1) string
     bmi (1,1) double
+    fs (1,1) double
     options.Ag (1,1) string
     options.Antag (1,1) string
     options.title (1,1) string
@@ -14,9 +15,6 @@ arguments
     options.modality (1,1) string
 end
 
-% --- Parameters ---
-fs = 1000;
-
 % Muscle mapping
 muscles_map = dictionary( ...
     "Bicep", 1, ...
@@ -24,7 +22,7 @@ muscles_map = dictionary( ...
     "DeltAnt", 3, ...
     "DeltPost", 4);
 
-% --- 1. Mapping and Data Loading ---
+% Mapping and Data Loading
 idx_Ag = muscles_map(options.Ag);
 idx_Antag = muscles_map(options.Antag);
 
@@ -43,21 +41,21 @@ rest_Antag_raw = rest_data{:, emg_idx(idx_Antag)};
 Ag_raw         = EMG_data{:, emg_idx(idx_Ag)};
 Antag_raw      = EMG_data{:, emg_idx(idx_Antag)};
 
-% --- 2. Signal Processing ---
+% Signal Processing
 rest_Ag_proc    = process_EMG(rest_Ag_raw, time, fs, bmi, "DoThreshold", false);
 rest_Antag_proc = process_EMG(rest_Antag_raw, time, fs, bmi, "DoThreshold", false);
 Ag_proc    = process_EMG(Ag_raw, time, fs, bmi, "DoThreshold", false);
 Antag_proc = process_EMG(Antag_raw, time, fs, bmi, "DoThreshold", false);
 
-% --- 3. Baseline Estimation ---
+% Baseline Estimatio
 Ag_baseline    = find_threshold(rest_Ag_proc, time, fs, 3);
 Antag_baseline = find_threshold(rest_Antag_proc, time, fs, 3);
 
-% --- 4. Conditioning (keep ≥ 25 samples activation) ---
+% Conditioning
 EMG_Ag    = condition_EMG(Ag_baseline, Ag_proc, 25);
 EMG_Antag = condition_EMG(Antag_baseline, Antag_proc, 25);
 
-% --- 5. Normalization ---
+% Normalization
 if max(EMG_Ag) > 0
     EMG_Ag = EMG_Ag / max(EMG_Ag);
 end
@@ -66,7 +64,7 @@ if max(EMG_Antag) > 0
     EMG_Antag = EMG_Antag / max(EMG_Antag);
 end
 
-% --- 6. CAI Computation ---
+% CAI Computation
 A_Ag    = trapz(time, EMG_Ag);
 A_Antag = trapz(time, EMG_Antag);
 
@@ -78,7 +76,7 @@ CAI_val = 2 * (A_common / (A_Ag + A_Antag)) * 100;
 % Avoid negative zero / numerical artifacts
 CAI_val = max(CAI_val, 0);
 
-% --- 7. Plotting ---
+% 7. Plotting
 task_name_clean = replace(options.title, "_", " ");
 
 fig = figure('Name', 'CAI_' + options.title, 'Visible', 'off');
@@ -109,7 +107,7 @@ ylabel('Normalized EMG');
 legend show
 grid on
 
-% --- 8. Save Figure ---
+% Save Figure
 file_name = sprintf('CAI_task-%s_%s_%s_vs_%s.png', ...
     options.task, options.title, options.Ag, options.Antag);
 
@@ -128,7 +126,7 @@ end
 
 close(fig);
 
-% --- 9. Save CSV ---
+% Save CSV
 newRow = table( ...
     options.task, ...
     options.subject, ...
