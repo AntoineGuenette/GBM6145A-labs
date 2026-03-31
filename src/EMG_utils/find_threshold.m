@@ -1,4 +1,4 @@
-function [T_m] = find_Tm(file_path, h, options)
+function [T_m] = find_threshold(file_path, h, options)
 arguments
     file_path (1,1) string % Baseline EMG
     h (1,1) double

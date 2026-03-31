@@ -1,4 +1,4 @@
-function [CAI_val] = find_CAI(file_path1, file_path2, bmi, options)
+function [CAI_val] = plot_CAI(file_path1, file_path2, bmi, options)
     arguments
     file_path1 (1,1) string
     file_path2 (1,1) string
