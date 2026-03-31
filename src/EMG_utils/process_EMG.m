@@ -5,6 +5,7 @@ arguments
     time (:,1) double
     fs (1,1) double
     bmi (1,1) double
+    options.DoThreshold (1,1) logical = true
     options.ShowGraph (1,1) logical = false
     options.BandpassLow (1,1) double = 10
     options.BandpassHigh (1,1) double = 400
@@ -18,6 +19,7 @@ bp_high   = options.BandpassHigh;
 ac_freq    = options.ACfreq;
 smooth_win = options.SmoothWin;
 show_graph = options.ShowGraph;
+do_threshold = options.DoThreshold;
 
 % Band-pass filter
 [b_bp,a_bp] = butter(4,[bp_low bp_high]/(fs/2),'bandpass');
@@ -41,45 +43,57 @@ EMG_smooth = movmean(EMG_rect,win);
 % Normalization by Body-Mass Index (BMI)
 EMG_proc = EMG_smooth / bmi;
 
+% Keep only the activations
+if do_threshold
+    threshold = find_threshold(EMG_proc, time, fs, 3);
+    EMG_proc = condition_EMG(threshold, EMG_proc, 25);
+
 % Show figure if specified
 if show_graph
     figure
     
-    subplot(6,1,1)
+    subplot(7,1,1)
     plot(time, EMG)
     title('Raw EMG signal')
     xlabel('Time (s)')
     ylabel('Amplitude (mV)')
 
-    subplot(6,1,2)
+    subplot(7,1,2)
     plot(time, EMG_bp)
     title('Band-pass')
     xlabel('Time (s)')
     ylabel('Amplitude (mV)')       
 
-    subplot(6,1,3)
+    subplot(7,1,3)
     plot(time, EMG_lp)
     title('Notch filter')
     xlabel('Time (s)')
     ylabel('Amplitude (mV)')
 
-    subplot(6,1,4)
+    subplot(7,1,4)
     plot(time, EMG_rect)
     title('Rectified EMG signal')
     xlabel('Time (s)')
     ylabel('Amplitude (mV)')
 
-    subplot(6,1,5)
+    subplot(7,1,5)
     plot(time, EMG_smooth)
     title('Smoothed EMG signal')
     xlabel('Time (s)')
     ylabel('Amplitude (mV)')
 
-    subplot(6,1,6)
-    plot(time, EMG_proc)
+    subplot(7,1,6)
+    plot(time, EMG_norm)
     title('Normalized EMG signal')
     xlabel('Time (s)')
     ylabel('Amplitude')
+
+    subplot(7,1,7)
+    plot(time, EMG_proc)
+    title('Processed EMG signal')
+    xlabel('Time (s)')
+    ylabel('Amplitude')
+
 
 end
 

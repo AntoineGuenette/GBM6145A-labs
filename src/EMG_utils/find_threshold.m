@@ -1,45 +1,40 @@
-function [T_m] = find_threshold(file_path, h, options)
+function [T_m] = find_threshold(EMG, time, fs, h)
+
 arguments
-    file_path (1,1) string % Baseline EMG
+    EMG (:,1) double
+    time (:,1) double
+    fs (1,1) double
     h (1,1) double
-    options.minSTD (1,1) logical = true
-    options.EMG (1,1) string = "EMG_1"
 end
 
-data = readtable(file_path);
-% Sélection dynamique de l'EMG demandée
-raw_EMG = data.(options.EMG); 
+% Number of samples
+numSamples = length(EMG);
 
-subjects = get_subject_info();
-fs = 1000;
+% Define window size (in seconds)
 windowSize = round(0.3 * fs);
-numSamples = length(raw_EMG);
-time = data.Time;
 
-% Traitement du signal (on utilise raw_EMG ici)
-EMG1 = process_EMG(raw_EMG, time, fs, subjects(1).bmi, "ShowGraph", false);
-
-% Calcul des fenêtres pour l'écart-type
+% Number of windows
 number_windows = floor(time(end)/0.3);
+
+% Initialize standard deviation values
 stdValues = zeros(number_windows, 1);
 
+% Compute standard deviation for each window
 for i = 1:number_windows
     startIdx = (i-1) * windowSize + 1;
     endIdx = min(i * windowSize, numSamples);
-    stdValues(i) = std(EMG1(startIdx:endIdx));
+    stdValues(i) = std(EMG(startIdx:endIdx));
 end
 
-[M, I] = min(stdValues);
+% Find the window with the minimum standard deviation (assumed baseline)
+[sigma_m, I] = min(stdValues);
+
+% Extract corresponding segment to compute mean
 startIdx = (I-1) * windowSize + 1;
 endIdx = min(I * windowSize, numSamples);
-mu_m = mean(EMG1(startIdx:endIdx));
+mu_m = mean(EMG(startIdx:endIdx));
 
-if options.minSTD
-    sigma_m = M;
-else
-    sigma_m = std(EMG1);
-end
-
+% Compute threshold
 T_m = mu_m + h * sigma_m;
 
 end
