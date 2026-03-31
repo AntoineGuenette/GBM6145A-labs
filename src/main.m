@@ -15,6 +15,7 @@ GUEA_ses2_figs_dir = fullfile(figs_dir, "GUEA_ses2");
 RABA_ses1_figs_dir = fullfile(figs_dir, "RABA_ses1");
 RABA_ses2_figs_dir = fullfile(figs_dir, "RABA_ses2");
 results_path = fullfile(res_dir, "results.csv");
+mean_act_results_path = fullfile(res_dir, "meanActResults.csv");
 CAI_results_path = fullfile(res_dir, "resultsCAI.csv");
 
 % Load functions
@@ -71,13 +72,20 @@ for k = 1:numel(files)
     save_path = fullfile(all_tracks_dir, title);
     title = strrep(title, '_', ' ');
     title = strrep(title, '-', ' - ');
+
+    % Parse filename
+    info = parse_filename(emg_Path);
      
     % Show all tracks
     if file_name == "Serie_3-Group_3-Task_31-JAMAR_Palmar_Grip-Device_(DynAReach).csv"
         plot_tracks(emg_Path, save_path, title, subjects(1).bmi, ...
-        BicepTrack=1, TricepTrack=2, AntDeltTrack=5, PostDeltTrack=4)
+        BicepTrack=1, TricepTrack=2, AntDeltTrack=5, PostDeltTrack=4, ...
+        taskID=string(info.task), taskName=info.task_name, modality=info.modality, subject="GUEA_ses1", ...
+        save_csv=mean_act_results_path)
     else
-        plot_tracks(emg_Path, save_path, title, subjects(1).bmi)
+        plot_tracks(emg_Path, save_path, title, subjects(1).bmi, ...
+        taskID=string(info.task), taskName=info.task_name, modality=info.modality, subject="GUEA_ses1", ...
+        save_csv=mean_act_results_path)
     end
 
 end
@@ -188,9 +196,14 @@ for k = 1:numel(files)
     save_path = fullfile(all_tracks_dir, title);
     title = strrep(title, '_', ' ');
     title = strrep(title, '-', ' - ');
+
+    % Parse filename
+    info = parse_filename(emg_Path);
      
     % Show all tracks
-    plot_tracks(emg_Path, save_path, title, subjects(1).bmi)
+    plot_tracks(emg_Path, save_path, title, subjects(1).bmi, ...
+    taskID=string(info.task), taskName=info.task_name, modality=info.modality, subject="RABA_ses1", ...
+    save_csv=mean_act_results_path)
 
 end
 fprintf("All tracks plots successfully created for RABA_ses1.\n")
@@ -299,15 +312,22 @@ for k = 1:numel(files)
     save_path = fullfile(all_tracks_dir, title);
     title = strrep(title, '_', ' ');
     title = strrep(title, '-', ' - ');
+
+    % Parse filename
+    info = parse_filename(emg_Path);
      
     % Show all tracks
     if any(file_name == [ ...
         "Serie_4-Group_3-Task_42-HFT_Feeding_task-Device_(Brace)", ...
         "Serie_4-Group_3-Task_43-Box_and_Blocs_Test-Device_(Brace)"])
         plot_tracks(emg_Path, save_path, title, subjects(3).bmi, ...
-        BicepTrack=1, TricepTrack=2, AntDeltTrack=5, PostDeltTrack=4)
+        BicepTrack=1, TricepTrack=2, AntDeltTrack=5, PostDeltTrack=4, ...
+        taskID=string(info.task), taskName=info.task_name, modality=info.modality, subject="GUEA_ses2", ...
+        save_csv=mean_act_results_path)
     else
-        plot_tracks(emg_Path, save_path, title, subjects(3).bmi)
+        plot_tracks(emg_Path, save_path, title, subjects(3).bmi, ...
+        taskID=string(info.task), taskName=info.task_name, modality=info.modality, subject="GUEA_ses2", ...
+        save_csv=mean_act_results_path)
     end
 
 end

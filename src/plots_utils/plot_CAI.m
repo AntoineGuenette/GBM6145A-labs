@@ -9,10 +9,10 @@ arguments
     options.Antag (1,1) string
     options.title (1,1) string
     options.task (1,1) string
-    options.save_folder (1,1) string
-    options.save_csv (1,1) string
     options.subject (1,1) string
     options.modality (1,1) string
+    options.save_folder (1,1) string
+    options.save_csv (1,1) string
 end
 
 % Muscle mapping
