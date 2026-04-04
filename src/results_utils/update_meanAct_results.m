@@ -1,4 +1,4 @@
-function update_CAI_results(input_path, output_path)
+function update_meanAct_results(input_path, output_path)
 arguments (Input)
     input_path (1,1) string
     output_path (1,1) string
@@ -10,24 +10,22 @@ tasks = dictionary("Pointing_Task","Pointing", "HFT_Large_Light_Objects","HFT_LL
     "JAMAR_Palmar_Grip_(Maintained_force)","Jamar", "HFT_Feeding_task","HFT_spoon", ...
     "Box_and_Blocs_Test","BBT");
 subjects = dictionary("GUEA_ses1", 2, "RABA_ses1", 3, "GUEA_ses2", 4, "RABA_ses2", 5);
-muscles = dictionary("Bicep","BiTri", "Tricep","BiTri", "DeltAnt","Delt", "DeltPost","Delt");
 
 % --- Reading files ---
 C1 = readcell(input_path);
 C2 = readcell(output_path);
 
 % --- STRUCTURE OF TEMPORARY STORAGE ---
-% We create a struct to store the CAI : storage.Subject_Task_Muscle.Modality = [valeurs]
 storage = struct();
 
 for i = 2:size(C1, 1)
     subject  = string(C1{i, 2});
     modality = string(C1{i, 3});
     taskName = string(C1{i, 4});
-    agonist  = string(C1{i, 5});
-    CAI      = C1{i, 7};
+    muscle  = string(C1{i, 5});
+    meanAct      = C1{i, 6};
 
-    if ~isKey(subjects, subject) || ~isKey(muscles, agonist), continue; end
+    if ~isKey(subjects, subject), continue; end
 
     % Not taking into account BIS result
     if contains(taskName, "BIS")
@@ -37,11 +35,9 @@ for i = 2:size(C1, 1)
     if isKey(tasks, taskName), tName = tasks(taskName);
     else, tName = taskName;
     end
-    mType = muscles(agonist);
 
     % Creating a unique key (ex: RABA_ses1_HFT_LLO_Delt)
-
-    safe_key = "s_" + subject + "_" + tName + "_" + mType;
+    safe_key = "s_" + subject + "_" + tName + "_" + muscle;
 
     % Replacing dask by underscore to have a valid name
     safe_key = replace(safe_key, "-", "_");
@@ -52,14 +48,14 @@ for i = 2:size(C1, 1)
         storage.(safe_key).Device      = [];
         storage.(safe_key).subjectName = subject;
         storage.(safe_key).taskName    = tName;
-        storage.(safe_key).muscleType  = mType;
+        storage.(safe_key).muscleType  = muscle;
     end
 
     % Accumulating the data
     if modality == "Baseline"
-        storage.(safe_key).Baseline(end+1) = CAI;
+        storage.(safe_key).Baseline(end+1) = meanAct;
     elseif modality == "Device"
-        storage.(safe_key).Device(end+1) = CAI;
+        storage.(safe_key).Device(end+1) = meanAct;
     end
 end
 
@@ -80,7 +76,7 @@ for f = 1:length(fields)
         task_label   = data.taskName;
         muscle_label = data.muscleType;
 
-        criteria = task_label + "-CAI_" + muscle_label;
+        criteria = task_label + "-MeanAct_" + muscle_label;
         row = find(strcmp(string(C2(:,1)), criteria));
         col = subjects(subj_name);
 
@@ -91,5 +87,7 @@ for f = 1:length(fields)
 end
 
 % --- FINAL WRITTING ---
+fprintf("Key: %s | Criteria: %s | Row: %d | Col: %d\n", ...
+    key, criteria, row, col);
 writecell(C2, output_path);
 end

@@ -1,7 +1,7 @@
-function diff = compute_CAI_diff(avg_J, avg_D)
+function diff = compute_EMG_diff(avg_B, avg_D)
 
 % Numerical conversion
-vals = {avg_J, avg_D};
+vals = {avg_B, avg_D};
 nums = zeros(2,1);
 for k = 1:2
     v = vals{k};
@@ -16,8 +16,8 @@ for k = 1:2
     end
 end
 
-baseline_mean = nums(1);  % JAECO
-device_mean   = nums(2);  % DynAReach
+baseline_mean = nums(1);
+device_mean   = nums(2);
 
 if baseline_mean == 0
     diff = 'N/A';

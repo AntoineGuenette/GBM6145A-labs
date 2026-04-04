@@ -540,4 +540,8 @@ update_non_EMG_results(results_path)
 
 % Add CAI results
 update_CAI_results(CAI_results_path, results_path);
+
+% Add mean activation results
+update_meanAct_results(mean_act_results_path, results_path);
+
 fprintf("Results have been written in %s\n", results_path)
