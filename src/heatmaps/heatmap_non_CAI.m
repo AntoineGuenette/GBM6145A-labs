@@ -1,11 +1,13 @@
 function heatmap_non_CAI(file_path)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
-
+arguments (Input)
+    file_path (1,1) string
+end
 results = readtable(file_path);
 
 % ------ Heatmap non CAI results -------
-xlabels = {"GUEA ses1", "RABA ses1"};
+xlabels = {"GUEA_ses1", "RABA_ses1"};
 % Creating a mask that only keeps non CAI indexes
 mask = ~contains(results.Criteria, 'CAI');
 % Only keeping non CAI data
