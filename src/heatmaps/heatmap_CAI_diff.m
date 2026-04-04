@@ -1,4 +1,4 @@
-function heatmap_meanAct_diff(file_path, save_dir)
+function heatmap_CAI_diff(file_path, save_dir)
 
 arguments (Input)
     file_path (1,1) string
@@ -7,12 +7,12 @@ end
 
 results = readtable(file_path);
 
-% Criteria = "Task-MeanAct_Muscle"
-mask = contains(results.Criteria, 'MeanAct');
+% ------ Filter CAI -------
+mask = contains(results.Criteria, 'CAI');
 sub_table = results(mask, :);
 
 % Extract Task and Muscle
-parts = split(sub_table.Criteria, "-MeanAct_");
+parts = split(sub_table.Criteria, "-CAI_");
 sub_table.Task = replace(parts(:,1), '_', ' ');
 sub_table.Muscle = parts(:,2);
 
@@ -26,10 +26,10 @@ if ~isfolder(save_dir)
 end
 
 % -------- FIGURE --------
-fig = figure('Visible','off');
-t = tiledlayout(1,length(data_vars),TileSpacing="compact",Padding="compact");
+fig = figure('Visible', 'off');
+t = tiledlayout(1,4,TileSpacing="compact",Padding="compact");
 
-% Loop over all columns
+% Loop over all columns (assumes 4)
 for i = 1:length(data_vars)
 
     nexttile
@@ -43,22 +43,20 @@ for i = 1:length(data_vars)
     h.XLabel = ' ';
     h.YLabel = ' ';
 
-    % Only one colorbar
+    % Keep only ONE colorbar (last plot)
     if i ~= length(data_vars)
         h.ColorbarVisible = 'off';
     end
 end
 
 % Global labels
-title(t, "Mean Activation Difference [%] - All Subjects", 'FontSize', 14);
-xlabel(t, 'Muscle');
-ylabel(t, 'Task');
+title(t, "CAI Difference Comparison - All Subjects", 'FontSize', 14);
+xlabel(t, 'Muscle pairs');
+ylabel(t,  'Task');
 
 % Save
-output_file = fullfile(save_dir, "heatmap_meanAct_diff.png");
+output_file = fullfile(save_dir, "heatmap_CAI_diff.png");
 exportgraphics(fig, output_file, 'Resolution', 300);
-
-close(fig);
 
 end
 

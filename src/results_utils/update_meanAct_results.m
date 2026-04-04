@@ -87,7 +87,5 @@ for f = 1:length(fields)
 end
 
 % --- FINAL WRITTING ---
-fprintf("Key: %s | Criteria: %s | Row: %d | Col: %d\n", ...
-    key, criteria, row, col);
 writecell(C2, output_path);
 end

@@ -1,0 +1,74 @@
+function heatmap_non_EMG_diff(file_path, save_dir)
+
+arguments (Input)
+    file_path (1,1) string
+    save_dir (1,1) string
+end
+
+results = readtable(file_path);
+
+% ------ Filter non-EMG -------
+mask = ~contains(results.Criteria, 'CAI') & ...
+       ~contains(results.Criteria, 'MeanAct');
+sub_table = results(mask, :);
+
+% Extract labels
+ylabels = replace(sub_table.Criteria, '_', ' ');
+
+% Get subject columns (auto)
+vars = sub_table.Properties.VariableNames;
+data_vars = vars(~ismember(vars, "Criteria"));
+
+% Build data matrix
+data = [];
+for c = data_vars
+    data = [data, sub_table.(c{1})];
+end
+
+xlabels = strrep(data_vars, "_", " ");
+
+% -------- FIGURE --------
+fig = figure('Visible','off');
+
+h = heatmap(xlabels, ylabels, data);
+
+h.Colormap = redblue();
+h.ColorLimits = [-100, 100];
+
+h.Title = 'Non-EMG Results';
+h.XLabel = 'Subjects';
+h.YLabel = 'Task';
+
+% Ensure save directory exists
+if ~isfolder(save_dir)
+    mkdir(save_dir);
+end
+
+% Save
+output_file = fullfile(save_dir, "heatmap_non_EMG.png");
+exportgraphics(fig, output_file, 'Resolution', 300);
+
+close(fig);
+
+end
+
+function cmap = redblue(m)
+if nargin < 1
+    m = 256;
+end
+
+bottom = [0 0 1];
+middle = [1 1 1];
+top = [1 0 0];
+
+cmap = zeros(m,3);
+for i = 1:m
+    t = (i-1)/(m-1);
+    if t < 0.5
+        cmap(i,:) = (1-2*t)*bottom + (2*t)*middle;
+    else
+        cmap(i,:) = (1-2*(t-0.5))*middle + (2*(t-0.5))*top;
+    end
+end
+
+end
