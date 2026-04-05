@@ -39,6 +39,7 @@ end
 
 % -------- FIGURE --------
 fig = figure('Visible', 'off');
+fig.Position(3:4) = [900 500];
 t = tiledlayout(1,4,TileSpacing="compact",Padding="compact");
 
 % Loop over all columns (assumes 4)

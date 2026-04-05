@@ -53,6 +53,7 @@ xlabels = strrep(data_vars, "_", " ");
 
 % -------- FIGURE --------
 fig = figure('Visible','off');
+fig.Position(3:4) = [550 500];
 
 h = heatmap(xlabels, ylabels, data);
 
