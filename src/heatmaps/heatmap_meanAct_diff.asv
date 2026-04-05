@@ -19,7 +19,7 @@ sub_table.Muscle = parts(:,2);
 % Define task order
 taskOrder = [
     "Shoulder Flexion"
-    "Elbow Flexion"
+    "Elbow flexion"
     "Pointing"
     "HFT LLO"
     "Joystick"

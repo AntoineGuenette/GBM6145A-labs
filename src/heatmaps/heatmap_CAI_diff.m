@@ -16,6 +16,18 @@ parts = split(sub_table.Criteria, "-CAI_");
 sub_table.Task = replace(parts(:,1), '_', ' ');
 sub_table.Muscle = parts(:,2);
 
+% Define task order
+taskOrder = [
+    "Shoulder Flexion"
+    "Elbow Flexion"
+    "Pointing"
+    "HFT LLO"
+    "Joystick"
+    "Jamar"
+    "HFT spoon"
+    "BBT"];
+sub_table.Task = categorical(sub_table.Task, taskOrder, 'Ordinal', true);
+
 % Get subject columns
 vars = sub_table.Properties.VariableNames;
 data_vars = vars(~ismember(vars, ["Criteria","Task","Muscle"]));

@@ -23,7 +23,7 @@ taskOrder = [
 % Extract labels
 % Convert criteria to display labels.
 ylabels = strtrim(replace(sub_table.Criteria, '_', ' '));
-ylabels = strtrim(replace(ylabels, '-', ' - '));
+ylabels = strtrim(replace(sub_table.Criteria, '-', ' - '));
 
 % Reorder rows to match the desired task order.
 % We assign each row a rank based on the first matching task name.
