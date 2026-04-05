@@ -39,8 +39,8 @@ end
 
 % -------- FIGURE --------
 fig = figure('Visible', 'off');
-fig.Position(3:4) = [900 500];
-t = tiledlayout(1,4,TileSpacing="compact",Padding="compact");
+fig.Position(3:4) = [700 500];
+t = tiledlayout(1,4);
 
 % Loop over all columns (assumes 4)
 for i = 1:length(data_vars)
@@ -55,6 +55,11 @@ for i = 1:length(data_vars)
     h.Title = strrep(data_vars{i}, "_", " ");
     h.XLabel = ' ';
     h.YLabel = ' ';
+
+    % Show y-axis labels only on the first subplot
+    if i ~= 1
+        h.YDisplayLabels = repmat("", size(h.YDisplayLabels));
+    end
 
     % Keep only ONE colorbar (last plot)
     if i ~= length(data_vars)
