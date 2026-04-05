@@ -556,7 +556,8 @@ fprintf("Results have been written in %s\n", results_path)
 
 %% --- HEATMAPS ---
 
-% Create heatmaps
+fprintf("\nCreating heatmaps...\n")
+
 heatmap_non_EMG_diff(results_path, heatmaps_dir);
 heatmap_CAI_diff(results_path, heatmaps_dir);
 heatmap_meanAct_diff(results_path, heatmaps_dir);
