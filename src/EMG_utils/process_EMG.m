@@ -1,5 +1,4 @@
 function EMG_proc = process_EMG(EMG, time, fs, bmi, options)
-
 arguments
     EMG (:,1) double
     time (:,1) double
@@ -11,15 +10,27 @@ arguments
     options.BandpassHigh (1,1) double = 400
     options.ACfreq (1,1) double = 60
     options.SmoothWin (1,1) double = 0.1
+    options.SavePath (1,1) string = ""
+    options.StopTimeMs (1,1) double = inf
 end
 
-% Optionnal parameters
-bp_low    = options.BandpassLow;
-bp_high   = options.BandpassHigh;
-ac_freq    = options.ACfreq;
-smooth_win = options.SmoothWin;
-show_graph = options.ShowGraph;
+% Optional parameters
+bp_low       = options.BandpassLow;
+bp_high      = options.BandpassHigh;
+ac_freq      = options.ACfreq;
+smooth_win   = options.SmoothWin;
+show_graph   = options.ShowGraph;
 do_threshold = options.DoThreshold;
+save_path    = options.SavePath;
+stop_time_ms = options.StopTimeMs;
+stop_time_s  = stop_time_ms / 1000;
+
+% Create folder if needed
+if save_path ~= ""
+    if ~isfolder(save_path)
+        mkdir(save_path);
+    end
+end
 
 % Band-pass filter
 [b_bp,a_bp] = butter(4,[bp_low bp_high]/(fs/2),'bandpass');
@@ -29,7 +40,6 @@ EMG_bp = filtfilt(b_bp,a_bp,EMG);
 bw = 2;
 low = (ac_freq - bw)/(fs/2);
 high = (ac_freq + bw)/(fs/2);
-
 [b_notch, a_notch] = butter(2, [low high], 'stop');
 EMG_lp = filtfilt(b_notch, a_notch, EMG_bp);
 
@@ -38,63 +48,80 @@ EMG_rect = abs(EMG_lp);
 
 % Smoothing
 win = round(smooth_win*fs);
-EMG_smooth = movmean(EMG_rect,win);
+EMG_smooth = movmean(EMG_rect, win);
 
-% Normalization by Body-Mass Index (BMI)
-EMG_proc = EMG_smooth / bmi;
+% Normalization by BMI
+EMG_norm = EMG_smooth / bmi;
+EMG_proc = EMG_norm;
 
 % Keep only the activations
 if do_threshold
     threshold = find_threshold(EMG_proc, time, fs, 3);
     EMG_proc = condition_EMG(threshold, EMG_proc, 25);
-
-% Show figure if specified
-if show_graph
-    figure
-    
-    subplot(7,1,1)
-    plot(time, EMG)
-    title('Raw EMG signal')
-    xlabel('Time (s)')
-    ylabel('Amplitude (mV)')
-
-    subplot(7,1,2)
-    plot(time, EMG_bp)
-    title('Band-pass')
-    xlabel('Time (s)')
-    ylabel('Amplitude (mV)')       
-
-    subplot(7,1,3)
-    plot(time, EMG_lp)
-    title('Notch filter')
-    xlabel('Time (s)')
-    ylabel('Amplitude (mV)')
-
-    subplot(7,1,4)
-    plot(time, EMG_rect)
-    title('Rectified EMG signal')
-    xlabel('Time (s)')
-    ylabel('Amplitude (mV)')
-
-    subplot(7,1,5)
-    plot(time, EMG_smooth)
-    title('Smoothed EMG signal')
-    xlabel('Time (s)')
-    ylabel('Amplitude (mV)')
-
-    subplot(7,1,6)
-    plot(time, EMG_norm)
-    title('Normalized EMG signal')
-    xlabel('Time (s)')
-    ylabel('Amplitude')
-
-    subplot(7,1,7)
-    plot(time, EMG_proc)
-    title('Processed EMG signal')
-    xlabel('Time (s)')
-    ylabel('Amplitude')
-
-
 end
 
+% Display and/or save graphs
+signals = {EMG, EMG_bp, EMG_lp, EMG_rect, EMG_smooth, EMG_norm, EMG_proc};
+titles  = {"Figure 2a : Signal brut", ...
+           "Figure 2b : Signal filtré (passe-bas)", ...
+           "Figure 2c : Signal filtré (Notch)", ...
+           "Figure 2d : Signal rectifié", ...
+           "Figure 2e : Signal lissé", ...
+           "Figure 2f : Signal normalisé", ...
+           "Figure 2g : Signal d'activation"};
+
+ylabels = {"Amplitude (mV)", ...
+           "Amplitude (mV)", ...
+           "Amplitude (mV)", ...
+           "Amplitude (mV)", ...
+           "Amplitude (mV)", ...
+           "Amplitude", ...
+           "Amplitude"};
+
+files = {"00_raw_emg.png", ...
+         "01_bandpass.png", ...
+         "02_notch.png", ...
+         "03_rectified.png", ...
+         "04_smoothed.png", ...
+         "05_normalized.png", ...
+         "06_processed.png"};
+
+colors = ["#606060", ...
+          "#fe6a6b", ...
+          "#03c1cb", ...
+          "#ffd166", ...
+          "#0ad69f", ...
+          "#8359aa", ...
+          "#4488de"];
+
+for i = 1:numel(signals)
+    fig = figure('Visible', ternary(show_graph, 'on', 'off'));
+    fig.Position(3:4) = [400 400];
+
+    plot(time, signals{i}, 'LineWidth', 1, 'Color', colors(i))
+    title(titles{i})
+    xlabel('Temps (s)')
+    ylabel(ylabels{i})
+    grid on
+
+    if isfinite(stop_time_s)
+        xlim([time(1) min(stop_time_s, time(end))])
+    end
+
+    if save_path ~= ""
+        exportgraphics(gca, fullfile(save_path, files{i}), 'Resolution', 300);
+    end
+
+    if ~show_graph
+        close(fig)
+    end
+end
+end
+
+function out = ternary(cond, a, b)
+if cond
+    out = a;
+else
+    out = b;
+end
 end
