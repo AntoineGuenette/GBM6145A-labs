@@ -2,7 +2,7 @@ function emtFolder2csv(folderPath, fileNameDict)
 
     arguments
         folderPath (1,1) string
-        fileNameDict (1,1) containers.Map
+        fileNameDict containers.Map
     end
 
     % Check input argument

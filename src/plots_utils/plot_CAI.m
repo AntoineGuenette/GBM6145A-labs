@@ -29,7 +29,8 @@ function [CAI_val] = plot_CAI(rest_path, EMG_path, bmi, fs, options)
     rest_data = readtable(rest_path);
     EMG_data  = readtable(EMG_path);
     
-    time = EMG_data.Time;
+    rest_time = rest_data.Time;
+    EMG_time = EMG_data.Time;
     
     % Extract EMG variable indices
     all_var_names = string(EMG_data.Properties.VariableNames);
@@ -42,14 +43,14 @@ function [CAI_val] = plot_CAI(rest_path, EMG_path, bmi, fs, options)
     Antag_raw      = EMG_data{:, emg_idx(idx_Antag)};
     
     % Process signal
-    rest_Ag_proc    = process_EMG(rest_Ag_raw, time, fs, bmi, "DoThreshold", false);
-    rest_Antag_proc = process_EMG(rest_Antag_raw, time, fs, bmi, "DoThreshold", false);
-    Ag_proc    = process_EMG(Ag_raw, time, fs, bmi, "DoThreshold", false);
-    Antag_proc = process_EMG(Antag_raw, time, fs, bmi, "DoThreshold", false);
+    rest_Ag_proc    = process_EMG(rest_Ag_raw, rest_time, fs, bmi, "DoThreshold", false);
+    rest_Antag_proc = process_EMG(rest_Antag_raw, rest_time, fs, bmi, "DoThreshold", false);
+    Ag_proc    = process_EMG(Ag_raw, EMG_time, fs, bmi, "DoThreshold", false);
+    Antag_proc = process_EMG(Antag_raw, EMG_time, fs, bmi, "DoThreshold", false);
     
     % Estimate rest threshold
-    Ag_baseline    = find_threshold(rest_Ag_proc, time, fs, 3);
-    Antag_baseline = find_threshold(rest_Antag_proc, time, fs, 3);
+    Ag_baseline    = find_threshold(rest_Ag_proc, rest_time, fs, 3);
+    Antag_baseline = find_threshold(rest_Antag_proc, rest_time, fs, 3);
     
     % Apply conditioning
     EMG_Ag    = condition_EMG(Ag_baseline, Ag_proc, 25);
@@ -65,11 +66,11 @@ function [CAI_val] = plot_CAI(rest_path, EMG_path, bmi, fs, options)
     end
     
     % Compute CAI
-    A_Ag    = trapz(time, EMG_Ag);
-    A_Antag = trapz(time, EMG_Antag);
+    A_Ag    = trapz(EMG_time, EMG_Ag);
+    A_Antag = trapz(EMG_time, EMG_Antag);
     
     area_common = min(EMG_Ag, EMG_Antag);
-    A_common = trapz(time, area_common);
+    A_common = trapz(EMG_time, area_common);
     
     CAI_val = 2 * (A_common / (A_Ag + A_Antag)) * 100;
     
@@ -81,14 +82,14 @@ function [CAI_val] = plot_CAI(rest_path, EMG_path, bmi, fs, options)
     
     fig = figure('Name', 'CAI_' + options.title, 'Visible', 'off');
     
-    plot(time, EMG_Ag, 'b', 'LineWidth', 1, ...
+    plot(EMG_time, EMG_Ag, 'b', 'LineWidth', 1, ...
         'DisplayName', "Agonist: " + options.Ag);
     hold on
     
-    plot(time, EMG_Antag, 'r', 'LineWidth', 1, ...
+    plot(EMG_time, EMG_Antag, 'r', 'LineWidth', 1, ...
         'DisplayName', "Antagonist: " + options.Antag);
     
-    area(time, area_common, ...
+    area(EMG_time, area_common, ...
         'FaceColor', [0.7 0.7 0.7], ...
         'EdgeColor', 'none', ...
         'DisplayName', 'Common Area');
