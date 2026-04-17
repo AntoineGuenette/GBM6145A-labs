@@ -1,5 +1,8 @@
+
 function heatmap_meanAct_diff(file_path, save_dir)
 
+%UNTITLED4 Summary of this function goes here
+%   Detailed explanation goes here
 arguments (Input)
     file_path (1,1) string
     save_dir (1,1) string
@@ -8,7 +11,10 @@ end
 results = readtable(file_path);
 
 % Criteria = "Task-MeanAct_Muscle"
-mask = contains(results.Criteria, 'MeanAct');
+mask = contains(results.Criteria, 'MeanAct')& ...
+    ~contains(results.Criteria, 'JAMAR')& ...
+    ~contains(results.Criteria, 'Joystick');
+    
 sub_table = results(mask, :);
 
 % Extract Task and Muscle
@@ -22,8 +28,6 @@ taskOrder = [
     "Elbow Flexion"
     "Pointing"
     "HFT LLO"
-    "Joystick"
-    "Jamar"
     "HFT spoon"
     "BBT"];
 sub_table.Task = categorical(sub_table.Task, taskOrder, 'Ordinal', true);
@@ -68,9 +72,9 @@ for i = 1:length(data_vars)
 end
 
 % Global labels
-title(t, "Mean Activation Difference - All Subjects", 'FontSize', 14);
+title(t, "Comparaison des différence d'activation moyenne - Tous les sujets", 'FontSize', 14);
 xlabel(t, 'Muscle');
-ylabel(t, 'Task');
+ylabel(t, 'Tâches');
 
 % Save
 output_file = fullfile(save_dir, "heatmap_meanAct_diff.png");
