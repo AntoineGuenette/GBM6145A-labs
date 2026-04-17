@@ -11,7 +11,7 @@ function heatmap_meanAct_diff(file_path, save_dir)
 
     % Filter mean activation and filter out JAMAR and Joystick tests
     mask = contains(results.Criteria, 'MeanAct')& ...
-        ~contains(results.Criteria, 'JAMAR')& ...
+        ~contains(results.Criteria, 'Jamar')& ...
         ~contains(results.Criteria, 'Joystick');
     sub_table = results(mask, :);
     
@@ -70,8 +70,8 @@ function heatmap_meanAct_diff(file_path, save_dir)
     end
     
     % Global labels
-    title(t, "Comparaison des différence d'activation moyenne - Tous les sujets", 'FontSize', 14);
-    xlabel(t, 'Muscle');
+    title(t, "Comparaison des variations d'activation musculaire moyenne", 'FontSize', 14);
+    xlabel(t, 'Muscles');
     ylabel(t, 'Tâches');
     
     % Save

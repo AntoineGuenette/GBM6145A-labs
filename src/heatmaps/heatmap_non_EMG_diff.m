@@ -62,9 +62,9 @@ function heatmap_non_EMG_diff(file_path, save_dir)
     h.Colormap = redblue();
     h.ColorLimits = [-100, 100];
     
-    h.Title = 'Non-EMG Results';
-    h.XLabel = 'Subjects';
-    h.YLabel = 'Task';
+    h.Title = 'Variation des résultats des tests standardisés';
+    h.XLabel = 'Sujets';
+    h.YLabel = 'Tâches';
     
     % Ensure save directory exists
     if ~isfolder(save_dir)

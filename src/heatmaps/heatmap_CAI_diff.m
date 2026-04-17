@@ -9,8 +9,10 @@ function heatmap_CAI_diff(file_path, save_dir)
 
     results = readtable(file_path);
 
-    % Filter CAI
-    mask = contains(results.Criteria, 'CAI');
+    % Filter CAI and filter out JAMAR and Joystick tests
+    mask = contains(results.Criteria, 'CAI')& ...
+        ~contains(results.Criteria, 'Jamar')& ...
+        ~contains(results.Criteria, 'Joystick');
     sub_table = results(mask, :);
     
     % Extract task and muscle
@@ -24,8 +26,6 @@ function heatmap_CAI_diff(file_path, save_dir)
         "Elbow Flexion"
         "Pointing"
         "HFT LLO"
-        "Joystick"
-        "Jamar"
         "HFT spoon"
         "BBT"];
     sub_table.Task = categorical(sub_table.Task, taskOrder, 'Ordinal', true);
@@ -70,9 +70,9 @@ function heatmap_CAI_diff(file_path, save_dir)
     end
     
     % Global labels
-    title(t, "CAI Difference Comparison - All Subjects", 'FontSize', 14);
-    xlabel(t, 'Muscle pairs');
-    ylabel(t,  'Task');
+    title(t, "Comparaison des variations d'ICA", 'FontSize', 14);
+    xlabel(t, 'Paires de muscles');
+    ylabel(t,  'Tâches');
     
     % Save
     output_file = fullfile(save_dir, "heatmap_CAI_diff.png");
