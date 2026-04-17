@@ -1,13 +1,13 @@
 function initialize_results(file_path)
 
-arguments
-    file_path (1,1) string
-end
+    arguments
+        file_path (1,1) string
+    end
 
     % Define header row
     header = {'Criteria','GUEA_ses1','RABA_ses1','GUEA_ses2','RABA_ses2'};
 
-    % Define Criteria column
+    % Define criteria column
     criteria = { ...
         'Shoulder_Flexion-CAI_Delt'
         'Shoulder_Flexion-MeanAct_Bicep'
@@ -70,8 +70,7 @@ end
 
     nRows = numel(criteria);   % number of criteria rows
 
-    % Initialize session columns with default value
-    % Use "N/A" as string placeholder (to be filled later with [0..1])
+    % Initialize session columns with default value ("N/A")
     defaultVal = 'N/A';
 
     GUEA_ses1 = repmat({defaultVal}, nRows, 1);
@@ -83,6 +82,6 @@ end
     dataBlock = [criteria, GUEA_ses1, RABA_ses1, GUEA_ses2, RABA_ses2];
     C = [header; dataBlock];
 
-    % Write cell array to CSV file (overwrites existing file)
+    % Write cell array to CSV file
     writecell(C, file_path);
 end

@@ -58,6 +58,7 @@ movements("Box_and_Blocs_Test") = struct('agoniste', ["Tricep","DeltAnt"], 'anta
 
 % -- SUBJECT 1 / SESSION 1 --
 
+% Define sub-directories and files
 sub_data_dir = GUEA_ses1_data_dir;
 sub_figs_dir = GUEA_ses1_figs_dir;
 files = dir(fullfile(sub_data_dir, '*.csv'));
@@ -182,6 +183,7 @@ fprintf("CAI computation completed for GUEA_ses1.\n")
 
 %% -- SUBJECT 2 / SESSION 1 --
 
+% Define sub-directories and files
 sub_data_dir = RABA_ses1_data_dir;
 sub_figs_dir = RABA_ses1_figs_dir;
 files = dir(fullfile(sub_data_dir, '*.csv'));
@@ -298,6 +300,7 @@ fprintf("CAI computation completed for RABA_ses1.\n")
 
 %% -- SUBJECT 1 / SESSION 2 --
 
+% Define sub-directories and files
 sub_data_dir = GUEA_ses2_data_dir;
 sub_figs_dir = GUEA_ses2_figs_dir;
 files = dir(fullfile(sub_data_dir, '*.csv'));
@@ -423,6 +426,7 @@ fprintf("CAI computation completed for GUEA_ses2.\n")
 
 %% -- SUBJECT 2 / SESSION 2 --
 
+% Define sub-directories and files
 sub_data_dir = RABA_ses2_data_dir;
 sub_figs_dir = RABA_ses2_figs_dir;
 files = dir(fullfile(sub_data_dir, '*.csv'));
@@ -558,6 +562,7 @@ fprintf("Results have been written in %s\n", results_path)
 
 fprintf("\nCreating heatmaps...\n")
 
+% Create heatmaps
 heatmap_non_EMG_diff(results_path, heatmaps_dir);
 heatmap_CAI_diff(results_path, heatmaps_dir);
 heatmap_meanAct_diff(results_path, heatmaps_dir);

@@ -1,5 +1,9 @@
 function info = parse_filename(file_path)
 
+    arguments
+        file_path (1,1) string
+    end
+
     % Initialize all fields
     info = struct( ...
         'serie', NaN, ...
@@ -12,7 +16,7 @@ function info = parse_filename(file_path)
     % Get file name
     [~, name, ~] = fileparts(file_path);
 
-    % Split
+    % Split the file name into parts
     parts = split(name, "-");
 
     % Safety check

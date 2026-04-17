@@ -1,115 +1,115 @@
 function subjects = get_subject_info()
 
-% General infos
-subjects(1).code = 'GUEA_ses1';
-subjects(1).height_cm = 171;
-subjects(1).weight_kg = 58;
-
-subjects(2).code = 'RABA_ses1';
-subjects(2).height_cm = 178;
-subjects(2).weight_kg = 73;
-
-subjects(3).code = 'GUEA_ses2';
-subjects(3).height_cm = 171;
-subjects(3).weight_kg = 58;
-
-subjects(4).code = 'RABA_ses2';
-subjects(4).height_cm = 178;
-subjects(4).weight_kg = 73;
-
-% Compute BMI
-for i = 1:numel(subjects)
-    subjects(i).bmi = subjects(i).weight_kg / (subjects(i).height_cm/100)^2;
-end
-
-% Non-EMG scores (task group 2)
-subjects(1).HFT_LLWObj_1_JAECO_s = 20.359 ;
-subjects(1).HFT_LLWObj_2_JAECO_s = 12.598 ;
-subjects(1).HFT_LLWObj_3_DynAReach_s = 15.261 ;
-subjects(1).HFT_LLWObj_4_DynAReach_s = 15.287 ;
-subjects(1).joystick_1_JAECO_s = 11.713 ;
-subjects(1).joystick_2_JAECO_s = 11.959 ;
-subjects(1).joystick_3_DynAReach_s = 5.318 ;
-subjects(1).joystick_4_DynAReach_s = 8.167 ;
-
-subjects(2).HFT_LLWObj_1_JAECO_s = 8.749 ;
-subjects(2).HFT_LLWObj_2_JAECO_s = 6.424 ;
-subjects(2).HFT_LLWObj_3_DynAReach_s = 7.927 ;
-subjects(2).HFT_LLWObj_4_DynAReach_s = 7.185 ;
-subjects(2).joystick_1_JAECO_s = 6.111 ;
-subjects(2).joystick_2_JAECO_s = 5.872 ;
-subjects(2).joystick_3_DynAReach_s = 4.908 ;
-subjects(2).joystick_4_DynAReach_s = 4.277 ;
-
-subjects(3).HFT_LLWObj_1_JAECO_s = 9.881 ;
-subjects(3).HFT_LLWObj_2_JAECO_s = 8.331 ;
-subjects(3).HFT_LLWObj_3_DynAReach_s = 7.963 ;
-subjects(3).HFT_LLWObj_4_DynAReach_s = 6.934 ;
-subjects(3).joystick_1_JAECO_s = 6.243 ;
-subjects(3).joystick_2_JAECO_s = 6.805 ;
-subjects(3).joystick_3_DynAReach_s = 5.542 ;
-subjects(3).joystick_4_DynAReach_s = 5.914 ;
-
-subjects(4).HFT_LLWObj_1_JAECO_s = 7.852 ;
-subjects(4).HFT_LLWObj_2_JAECO_s = 6.726 ;
-subjects(4).HFT_LLWObj_3_DynAReach_s = 6.317 ;
-subjects(4).HFT_LLWObj_4_DynAReach_s = 5.781 ;
-subjects(4).joystick_1_JAECO_s = 5.321 ;
-subjects(4).joystick_2_JAECO_s = 4.581 ;
-subjects(4).joystick_3_DynAReach_s = 4.466 ;
-subjects(4).joystick_4_DynAReach_s = 4.167 ;
-
-% Non-EMG scores (task group 3)
-subjects(1).JAMAR_1_JAECO_kg = 57;
-subjects(1).JAMAR_2_JAECO_kg = 52;
-subjects(1).JAMAR_3_JAECO_kg = 54;
-subjects(1).JAMAR_4_DynAReach_kg = 56;
-subjects(1).HFT_spoon_1_JAECO_s = 23.195;
-subjects(1).HFT_spoon_2_JAECO_s =  17.864;
-subjects(1).HFT_spoon_3_JAECO_s = 15.067;
-subjects(1).HFT_spoon_4_DynAReach_s = 19.751 ;
-subjects(1).BBT_1_JAECO = 51;
-subjects(1).BBT_2_JAECO = 58;
-subjects(1).BBT_3_JAECO = 62;
-subjects(1).BBT_4_DynAReach = 56;
-
-subjects(2).JAMAR_1_JAECO_kg = 38;
-subjects(2).JAMAR_2_JAECO_kg = 41;
-subjects(2).JAMAR_3_JAECO_kg = 40.5;
-subjects(2).JAMAR_4_DynAReach_kg = 40.5;
-subjects(2).HFT_spoon_1_JAECO_s = 12.179 ;
-subjects(2).HFT_spoon_2_JAECO_s = 10.484 ;
-subjects(2).HFT_spoon_3_JAECO_s = 10.294 ;
-subjects(2).HFT_spoon_4_DynAReach_s = 11.204 ;
-subjects(2).BBT_1_JAECO = 58;
-subjects(2).BBT_2_JAECO = 61;
-subjects(2).BBT_3_JAECO = 67;
-subjects(2).BBT_4_DynAReach = 67;
-
-subjects(3).JAMAR_1_JAECO_kg = 53;
-subjects(3).JAMAR_2_JAECO_kg = 55;
-subjects(3).JAMAR_3_JAECO_kg = 52;
-subjects(3).JAMAR_4_DynAReach_kg = 54;
-subjects(3).HFT_spoon_1_JAECO_s = 16.227 ;
-subjects(3).HFT_spoon_2_JAECO_s = 13.062 ;
-subjects(3).HFT_spoon_3_JAECO_s = 13.025 ;
-subjects(3).HFT_spoon_4_DynAReach_s = 15.244 ;
-subjects(3).BBT_1_JAECO = 69;
-subjects(3).BBT_2_JAECO = 66;
-subjects(3).BBT_3_JAECO = 71;
-subjects(3).BBT_4_DynAReach = 74;
-
-subjects(4).JAMAR_1_JAECO_kg = 42;
-subjects(4).JAMAR_2_JAECO_kg = 42;
-subjects(4).JAMAR_3_JAECO_kg = 43;
-subjects(4).JAMAR_4_DynAReach_kg = 44;
-subjects(4).HFT_spoon_1_JAECO_s = 11.938 ;
-subjects(4).HFT_spoon_2_JAECO_s = 10.016 ;
-subjects(4).HFT_spoon_3_JAECO_s = 10.100 ;
-subjects(4).HFT_spoon_4_DynAReach_s = 10.844 ;
-subjects(4).BBT_1_JAECO = 65;
-subjects(4).BBT_2_JAECO = 72;
-subjects(4).BBT_3_JAECO = 76;
-subjects(4).BBT_4_DynAReach = 74;
+    % General infos
+    subjects(1).code = 'GUEA_ses1';
+    subjects(1).height_cm = 171;
+    subjects(1).weight_kg = 58;
+    
+    subjects(2).code = 'RABA_ses1';
+    subjects(2).height_cm = 178;
+    subjects(2).weight_kg = 73;
+    
+    subjects(3).code = 'GUEA_ses2';
+    subjects(3).height_cm = 171;
+    subjects(3).weight_kg = 58;
+    
+    subjects(4).code = 'RABA_ses2';
+    subjects(4).height_cm = 178;
+    subjects(4).weight_kg = 73;
+    
+    % Compute BMI
+    for i = 1:numel(subjects)
+        subjects(i).bmi = subjects(i).weight_kg / (subjects(i).height_cm/100)^2;
+    end
+    
+    % Non-EMG scores (task group 2)
+    subjects(1).HFT_LLWObj_1_JAECO_s = 20.359 ;
+    subjects(1).HFT_LLWObj_2_JAECO_s = 12.598 ;
+    subjects(1).HFT_LLWObj_3_DynAReach_s = 15.261 ;
+    subjects(1).HFT_LLWObj_4_DynAReach_s = 15.287 ;
+    subjects(1).joystick_1_JAECO_s = 11.713 ;
+    subjects(1).joystick_2_JAECO_s = 11.959 ;
+    subjects(1).joystick_3_DynAReach_s = 5.318 ;
+    subjects(1).joystick_4_DynAReach_s = 8.167 ;
+    
+    subjects(2).HFT_LLWObj_1_JAECO_s = 8.749 ;
+    subjects(2).HFT_LLWObj_2_JAECO_s = 6.424 ;
+    subjects(2).HFT_LLWObj_3_DynAReach_s = 7.927 ;
+    subjects(2).HFT_LLWObj_4_DynAReach_s = 7.185 ;
+    subjects(2).joystick_1_JAECO_s = 6.111 ;
+    subjects(2).joystick_2_JAECO_s = 5.872 ;
+    subjects(2).joystick_3_DynAReach_s = 4.908 ;
+    subjects(2).joystick_4_DynAReach_s = 4.277 ;
+    
+    subjects(3).HFT_LLWObj_1_JAECO_s = 9.881 ;
+    subjects(3).HFT_LLWObj_2_JAECO_s = 8.331 ;
+    subjects(3).HFT_LLWObj_3_DynAReach_s = 7.963 ;
+    subjects(3).HFT_LLWObj_4_DynAReach_s = 6.934 ;
+    subjects(3).joystick_1_JAECO_s = 6.243 ;
+    subjects(3).joystick_2_JAECO_s = 6.805 ;
+    subjects(3).joystick_3_DynAReach_s = 5.542 ;
+    subjects(3).joystick_4_DynAReach_s = 5.914 ;
+    
+    subjects(4).HFT_LLWObj_1_JAECO_s = 7.852 ;
+    subjects(4).HFT_LLWObj_2_JAECO_s = 6.726 ;
+    subjects(4).HFT_LLWObj_3_DynAReach_s = 6.317 ;
+    subjects(4).HFT_LLWObj_4_DynAReach_s = 5.781 ;
+    subjects(4).joystick_1_JAECO_s = 5.321 ;
+    subjects(4).joystick_2_JAECO_s = 4.581 ;
+    subjects(4).joystick_3_DynAReach_s = 4.466 ;
+    subjects(4).joystick_4_DynAReach_s = 4.167 ;
+    
+    % Non-EMG scores (task group 3)
+    subjects(1).JAMAR_1_JAECO_kg = 57;
+    subjects(1).JAMAR_2_JAECO_kg = 52;
+    subjects(1).JAMAR_3_JAECO_kg = 54;
+    subjects(1).JAMAR_4_DynAReach_kg = 56;
+    subjects(1).HFT_spoon_1_JAECO_s = 23.195;
+    subjects(1).HFT_spoon_2_JAECO_s =  17.864;
+    subjects(1).HFT_spoon_3_JAECO_s = 15.067;
+    subjects(1).HFT_spoon_4_DynAReach_s = 19.751 ;
+    subjects(1).BBT_1_JAECO = 51;
+    subjects(1).BBT_2_JAECO = 58;
+    subjects(1).BBT_3_JAECO = 62;
+    subjects(1).BBT_4_DynAReach = 56;
+    
+    subjects(2).JAMAR_1_JAECO_kg = 38;
+    subjects(2).JAMAR_2_JAECO_kg = 41;
+    subjects(2).JAMAR_3_JAECO_kg = 40.5;
+    subjects(2).JAMAR_4_DynAReach_kg = 40.5;
+    subjects(2).HFT_spoon_1_JAECO_s = 12.179 ;
+    subjects(2).HFT_spoon_2_JAECO_s = 10.484 ;
+    subjects(2).HFT_spoon_3_JAECO_s = 10.294 ;
+    subjects(2).HFT_spoon_4_DynAReach_s = 11.204 ;
+    subjects(2).BBT_1_JAECO = 58;
+    subjects(2).BBT_2_JAECO = 61;
+    subjects(2).BBT_3_JAECO = 67;
+    subjects(2).BBT_4_DynAReach = 67;
+    
+    subjects(3).JAMAR_1_JAECO_kg = 53;
+    subjects(3).JAMAR_2_JAECO_kg = 55;
+    subjects(3).JAMAR_3_JAECO_kg = 52;
+    subjects(3).JAMAR_4_DynAReach_kg = 54;
+    subjects(3).HFT_spoon_1_JAECO_s = 16.227 ;
+    subjects(3).HFT_spoon_2_JAECO_s = 13.062 ;
+    subjects(3).HFT_spoon_3_JAECO_s = 13.025 ;
+    subjects(3).HFT_spoon_4_DynAReach_s = 15.244 ;
+    subjects(3).BBT_1_JAECO = 69;
+    subjects(3).BBT_2_JAECO = 66;
+    subjects(3).BBT_3_JAECO = 71;
+    subjects(3).BBT_4_DynAReach = 74;
+    
+    subjects(4).JAMAR_1_JAECO_kg = 42;
+    subjects(4).JAMAR_2_JAECO_kg = 42;
+    subjects(4).JAMAR_3_JAECO_kg = 43;
+    subjects(4).JAMAR_4_DynAReach_kg = 44;
+    subjects(4).HFT_spoon_1_JAECO_s = 11.938 ;
+    subjects(4).HFT_spoon_2_JAECO_s = 10.016 ;
+    subjects(4).HFT_spoon_3_JAECO_s = 10.100 ;
+    subjects(4).HFT_spoon_4_DynAReach_s = 10.844 ;
+    subjects(4).BBT_1_JAECO = 65;
+    subjects(4).BBT_2_JAECO = 72;
+    subjects(4).BBT_3_JAECO = 76;
+    subjects(4).BBT_4_DynAReach = 74;
 
 end

@@ -1,13 +1,19 @@
 function diff = compute_non_EMG_diff(val_1, val_2, val_3, val_4, task_group)
 
+    arguments
+        val_1 (1,1) double
+        val_2 (1,1) double
+        val_3 (1,1) double
+        val_4 (1,1) double
+        task_group (1,1) int8
+    end
+
     % Pack values in a cell array for easier handling
     vals = {val_1, val_2, val_3, val_4};
 
-    % Helper: test if a value is 'Unknown'
+    % Test if a value is 'Unknown'
     isUnknown = @(v) (ischar(v) && strcmp(v,'Unknown')) || ...
                      (isstring(v) && v=="Unknown");
-
-    % If any value is the string 'Unknown' -> 'N/A'
     for k = 1:4
         if isUnknown(vals{k})
             diff = 'N/A';
@@ -58,6 +64,7 @@ function diff = compute_non_EMG_diff(val_1, val_2, val_3, val_4, task_group)
     % Compute percentage difference
     diff_val = (device_mean - baseline_mean) / baseline_mean * 100;
 
-    % Format to 2 decimals as string
+    % Format to two decimals as string
     diff = sprintf('%.2f', diff_val);
+   
 end
